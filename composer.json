@@ -23,7 +23,6 @@
 		}
 	},
 	"require": {
-		"php": ">=5.4.0",
-		"dino/dompdf-module" : "dev-master"
+		"php": ">=5.4.0"
 	}
 }
