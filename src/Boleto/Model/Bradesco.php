@@ -41,12 +41,6 @@ class Bradesco extends Boleto {
 	 */
 	protected $contaCedenteDV;
 	
-	protected $especie;
-	
-	protected $especieDoc;
-	
-	protected $quantidade;
-
 	/**
 	 * Construtura da classe. Utiliza a classe Hydrator para popular seus métodos
 	 * @param array $options
@@ -70,33 +64,5 @@ class Bradesco extends Boleto {
 		return $this;
 	}
 	
-	public function getEspecie() {
-		return $this->especie;
-	}
-
-	public function setEspecie($especie) {
-		$this->especie = $especie;
-		return $this;
-	}
-	
-	public function getEspecieDoc() {
-		return $this->especieDoc;
-	}
-
-	public function setEspecieDoc($especieDoc) {
-		$this->especieDoc = $especieDoc;
-		return $this;
-	}
-
-	public function getQuantidade() {
-		return $this->quantidade;
-	}
-
-	public function setQuantidade($quantidade) {
-		$this->quantidade = $quantidade;
-		return $this;
-	}
-
-
 
 }

@@ -73,6 +73,7 @@ return array(
 	'controllers' => array(
 		'invokables' => array(
 			'Boleto\Controller\Bradesco' => 'Boleto\Controller\BradescoController',
+			'Boleto\Controller\BB' => 'Boleto\Controller\BBController',
 		),
 	),
 	'view_manager' => array(

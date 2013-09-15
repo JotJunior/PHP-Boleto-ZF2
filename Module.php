@@ -40,6 +40,10 @@ class Module {
 					$config = $sm->get('config');
 					return new Service\Bradesco($config['boleto']);
 				},
+				'Boleto\Service\BB' => function($sm) {
+					$config = $sm->get('config');
+					return new Service\BB($config['boleto']);
+				},
 			)
 		);
 	}

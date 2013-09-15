@@ -248,7 +248,7 @@ class Boleto {
 	protected $contaDV;
 	
 	protected $carteira;
-
+	
 	/**
 	 * Construtura da classe. Utiliza a classe Hydrator para popular seus métodos
 	 * @param array $options
@@ -661,6 +661,8 @@ class Boleto {
 		$this->valor = $valor;
 		return $this;
 	}
+	
+	
 
 
 }
