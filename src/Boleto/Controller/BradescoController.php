@@ -24,6 +24,7 @@
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
+
 namespace Boleto\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
@@ -58,10 +59,10 @@ class BradescoController extends AbstractActionController {
 			}
 		} else {
 			$data = array(
-				'sacado' => 'João Geraldo Zanon Junior',
-				'endereco1' => 'Rua Quatro, 29 / 301',
-				'endereco2' => 'Santa Mônica - Vila Velha - ES',
-				'dataVencimento' => '20/09/2013',
+				'sacado' => 'João da Silva',
+				'endereco1' => 'Rua Blaster, 445',
+				'endereco2' => 'Vila Gertrudes - São Paulo - SP',
+				'dataVencimento' => date("d/m/Y", time() + strtotime('5 Days')),
 				'dataDocumento' => date("d/m/Y"),
 				'dataProcessamento' => date("d/m/Y"),
 				'nossoNumero' => 1234,
@@ -90,10 +91,10 @@ class BradescoController extends AbstractActionController {
 				break;
 		}
 	}
-	
+
 	public function demoAction() {
 		$form = new \Boleto\Form\Boleto;
-		
+
 		return new ViewModel(array('form' => $form));
 	}
 
