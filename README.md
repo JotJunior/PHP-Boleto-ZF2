@@ -13,6 +13,7 @@ Instalação
 
      ```json
      {
+         "minimum-stability": "dev",
          "require": {
              "jotjunior/boletophp-zf2": "dev-master"
          }
