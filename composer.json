@@ -17,6 +17,11 @@
 			"email": "jot@jot.com.br"
 		}
 	],
+	"autoload": {
+		"psr-0": {
+			"Boleto": "src/"
+		}
+	},
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
