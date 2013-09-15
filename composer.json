@@ -6,7 +6,7 @@
 			"url": "https://github.com/JotJunior/BoletoPHP-ZF2"
 		}
 	],
-	"type": "module",
+	"type": "library",
 	"description": "Adaptação do BoletoPHP para Zend Framework 2",
 	"homepage": "https://github.com/JotJunior/BoletoPHP-ZF2",
 	"license": "GNU General Public License ",
@@ -19,7 +19,7 @@
 	],
 	"autoload": {
 		"psr-0": {
-			"Boleto": "src/"
+			"BoletophpZF2": "src/"
 		}
 	},
 	"minimum-stability": "dev",
