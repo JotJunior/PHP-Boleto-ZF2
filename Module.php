@@ -1,11 +1,28 @@
 <?php
 
 /**
- * Sportos IBJJF Database
- *
- * @link      http://www.ibjjf.org
- * @copyright Copyright (c) 2013 Jot (http://www.jot.com,br) and Adron (http://www.adron.com.br)
- * @author João G. "Jot" Zanon Jr. <jot@jot.com.br>
+ * BoletoPhp ZF2 - Versão Beta 
+ * 
+ * Este arquivo está disponível sob a Licença GPL disponível pela Web
+ * em http://pt.wikipedia.org/wiki/GNU_General_Public_License 
+ * Você deve ter recebido uma cópia da GNU Public License junto com
+ * este pacote; se não, escreva para: 
+ * 
+ * Free Software Foundation, Inc.
+ * 59 Temple Place - Suite 330
+ * Boston, MA 02111-1307, USA.
+ * 
+ * Originado do Projeto BBBoletoFree que tiveram colaborações de Daniel
+ * William Schultz e Leandro Maniezo que por sua vez foi derivado do
+ * PHPBoleto de João Prado Maia e Pablo Martins F. Costa
+ * 
+ * Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)
+ * Acesse o site do Projeto BoletoPhp: www.boletophp.com.br 
+ * 
+ * Equipe Coordenação Projeto BoletoPhp: <boletophp@boletophp.com.br> 
+ * 
+ * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
+ * 
  */
 
 namespace Boleto;
