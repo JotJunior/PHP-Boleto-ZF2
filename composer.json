@@ -9,7 +9,7 @@
 	"type": "module",
 	"description": "Adaptação do BoletoPHP para Zend Framework 2",
 	"homepage": "https://github.com/JotJunior/BoletoPHP-ZF2",
-	"license": "GPL",
+	"license": "GNU General Public License ",
 	"version": "0.1.0",
 	"authors": [
 		{
