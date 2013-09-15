@@ -29,6 +29,10 @@ Instalação
      ```
   6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
 
+Demo
+----
+[Página de demonstração do projeto](http://phpboleto-zf2.jot.com.br/)
+
 Créditos
 --------
 Este projeto é totalmente inspirado no BoletoPHP e trata-se somente de uma adtaptação para o Zend Framework 2. Todos os créditos e direitos dos boletos exibidos neste módulo pertencem ao BoletoPHP.
