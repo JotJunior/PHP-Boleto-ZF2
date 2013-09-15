@@ -42,7 +42,7 @@ class Boleto extends Form {
 		$this->add((new Element\Text)->setName('sacado')->setLabel('Nome do Sacado')->setValue('João da Silva'));
 		$this->add((new Element\Text)->setName('endereco1')->setLabel('Endereço 1')->setValue('Rua das Gretrudes, 25 - Apartamento 522'));
 		$this->add((new Element\Text)->setName('endereco2')->setLabel('Endereço 2')->setValue('Bairro Blaster - São Paulo - SP'));
-		$this->add((new Element\Text)->setName('dataVencimento')->setLabel('Data do Vencimento')->setValue(date("d/m/Y", time() + strtotime('5 Days'))));
+		$this->add((new Element\Text)->setName('dataVencimento')->setLabel('Data do Vencimento')->setValue(date("d/m/Y", strtotime('+1 week'))));
 		$this->add((new Element\Text)->setName('dataDocumento')->setLabel('Data do Documento')->setValue(date("d/m/Y")));
 		$this->add((new Element\Text)->setName('dataProcessamento')->setLabel('Data do Processamento')->setValue(date("d/m/Y")));
 		$this->add((new Element\Number)->setName('nossoNumero')->setLabel('Nosso Número')->setValue(rand(100, 500)));
