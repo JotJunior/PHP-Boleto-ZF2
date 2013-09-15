@@ -25,7 +25,7 @@ Instalação
   5. abra `diretorio/do/meu/projeto/config/application.config.php` e adicione a seguinte chave no índice `modules`: 
 
      ```php
-     'Boleto',
+     'BoletophpZF2',
      ```
   6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
 
