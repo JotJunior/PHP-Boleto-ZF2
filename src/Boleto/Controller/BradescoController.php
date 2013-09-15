@@ -62,13 +62,13 @@ class BradescoController extends AbstractActionController {
 				'sacado' => 'João da Silva',
 				'endereco1' => 'Rua Blaster, 445',
 				'endereco2' => 'Vila Gertrudes - São Paulo - SP',
-				'dataVencimento' => date("d/m/Y", strtotime('+1 week')),
+				'dataVencimento' => date("d/m/Y", strtotime('+5 days')),
 				'dataDocumento' => date("d/m/Y"),
 				'dataProcessamento' => date("d/m/Y"),
-				'nossoNumero' => 1234,
-				'numeroDocumento' => 1234,
-				'valor' => 23500,
-				'valorUnitario' => 23500,
+				'nossoNumero' => 75896452,
+				'numeroDocumento' => 75896452,
+				'valor' => 295000,
+				'valorUnitario' => 295000,
 				'quantidade' => 1,
 			);
 		}

@@ -31,7 +31,7 @@ abstract class Boleto {
 
 	protected $fBarcodeFino = 1;
 	protected $fBarcodeLargo = 3;
-	protected $fBarcodeAltura = 40;
+	protected $fBarcodeAltura = 50;
 	protected $fBarcodeImgB = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
 	protected $fBarcodeImgP = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
 	protected $barcodeData;

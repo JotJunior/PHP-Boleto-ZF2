@@ -49,7 +49,8 @@ class Bradesco {
 		$this->boleto->setCodigoBanco($config['bancos'][$this->banco]['codigo']);
 		$this->boleto->setCodigoBancoComDV($bradesco->geraCodigoBanco($config['bancos'][$this->banco]['codigo']));
 		$this->boleto->setNumMoeda(9);
-		$this->boleto->setAgencia($bradesco->formataNumero($config['bancos'][$this->banco]['agencia'], 10, 0));
+		
+		$this->boleto->setAgencia($bradesco->formataNumero($config['bancos'][$this->banco]['agencia'], 4, 0));
 		$this->boleto->setAgenciaDV($bradesco->formataNumero($config['bancos'][$this->banco]['agenciaDV'], 1, 0));
 		$this->boleto->setConta($bradesco->formataNumero($config['bancos'][$this->banco]['conta'], 6, 0));
 		$this->boleto->setContaDV($bradesco->formataNumero($config['bancos'][$this->banco]['contaDV'], 1, 0));
@@ -89,7 +90,7 @@ class Bradesco {
 		$valor = preg_replace("/[^\d]/", "", $data['valor']);
 		$taxa = preg_replace("/[^\d]/", "", $this->boleto->getTaxaBoleto());
 		$this->boleto->setValor($valor + (float) $taxa);
-		$this->boleto->setValorBoleto(number_format(($valor + (float) $taxa) / 100, 2, ",", "."));
+		$this->boleto->setValorBoleto(number_format(($valor + (float) $taxa) / 100, 2, ",", ""));
 		$this->boleto->setValorCobrado($valor / 100);
 
 		$valorProcessado = $bradesco->formataNumero(($valor + (float) $taxa), 10, 0, "valor");
@@ -115,7 +116,7 @@ class Bradesco {
 		$this->boleto->setDataDocumento($data['dataDocumento']);
 		$this->boleto->setDataProcessamento($data['dataProcessamento']);
 		$this->boleto->setQuantidade($data['quantidade']);
-		$this->boleto->setValorUnitario(number_format($data['valorUnitario'] / 100, 2, ",", "."));
+		$this->boleto->setValorUnitario(number_format($data['valorUnitario'] / 100, 2, ",", ""));
 
 		return $this->boleto;
 	}
