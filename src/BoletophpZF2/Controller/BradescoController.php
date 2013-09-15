@@ -25,19 +25,19 @@
  * 
  */
 
-namespace Boleto\Controller;
+namespace BoletophpZF2\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DOMPDFModule\View\Model\PdfModel;
 
-class BBController extends AbstractActionController {
+class BradescoController extends AbstractActionController {
 
 	/**
 	 * Nome do banco que será processado no momento
 	 * @var string
 	 */
-	protected $banco = 'banco_do_brasil';
+	protected $banco = 'bradesco';
 
 	public function indexAction() {
 		// definindo o layout
@@ -45,10 +45,10 @@ class BBController extends AbstractActionController {
 
 		$request = $this->getRequest();
 
-		$service = $this->getServiceLocator()->get('Boleto\Service\BB');
+		$service = $this->getServiceLocator()->get('BoletophpZF2\Service\Bradesco');
 
 		if ($request->isPost()) {
-			$form = new \Boleto\Form\Boleto;
+			$form = new \BoletophpZF2\Form\Boleto;
 			$form->setData($request->getPost());
 
 			if ($form->isValid()) {
@@ -65,8 +65,8 @@ class BBController extends AbstractActionController {
 				'dataVencimento' => date("d/m/Y", strtotime('+5 days')),
 				'dataDocumento' => date("d/m/Y"),
 				'dataProcessamento' => date("d/m/Y"),
-				'nossoNumero' => 87654,
-				'numeroDocumento' => '27.030195.10',
+				'nossoNumero' => 75896452,
+				'numeroDocumento' => 75896452,
 				'valor' => 295000,
 				'valorUnitario' => 295000,
 				'quantidade' => 1,
@@ -82,7 +82,7 @@ class BBController extends AbstractActionController {
 				break;
 			case 'pdf' :
 				$pdf = new PdfModel();
-				$pdf->setOption('filename', 'boleto-bb');
+				$pdf->setOption('filename', 'boleto-bradesco');
 				$pdf->setOption('enable_remote', true);
 				$pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
 				$pdf->setVariables(array('boleto' => $boleto));
@@ -93,7 +93,7 @@ class BBController extends AbstractActionController {
 	}
 
 	public function demoAction() {
-		$form = new \Boleto\Form\Boleto;
+		$form = new \BoletophpZF2\Form\Boleto;
 
 		return new ViewModel(array('form' => $form));
 	}

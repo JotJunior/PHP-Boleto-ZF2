@@ -24,7 +24,7 @@
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
-namespace Boleto\Form;
+namespace BoletophpZF2\Form;
 
 use Zend\InputFilter\InputFilter;
 

@@ -25,7 +25,7 @@
  * 
  */
 
-namespace Boleto\Model;
+namespace BoletophpZF2\Model;
 
 
 class Boleto {

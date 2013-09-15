@@ -1,6 +1,6 @@
 <?php
 
-namespace Boleto\Model;
+namespace BoletophpZF2\Model;
 
 /**
  * BoletoPhp ZF2 - Versão Beta 

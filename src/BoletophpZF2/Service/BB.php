@@ -25,10 +25,10 @@
  * 
  */
 
-namespace Boleto\Service;
+namespace BoletophpZF2\Service;
 
-use Boleto\Lib\BB as BBLib;
-use Boleto\Model\BB as BoletoModel;
+use BoletophpZF2\Lib\BB as BBLib;
+use BoletophpZF2\Model\BB as BoletoModel;
 
 class BB {
 

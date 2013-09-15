@@ -25,7 +25,7 @@
  * 
  */
 
-namespace Boleto\Form;
+namespace BoletophpZF2\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;

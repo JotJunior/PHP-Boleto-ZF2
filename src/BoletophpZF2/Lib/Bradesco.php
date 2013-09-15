@@ -25,7 +25,7 @@
  * 
  */
 
-namespace Boleto\Lib;
+namespace BoletophpZF2\Lib;
 
 class Bradesco extends Boleto {
 

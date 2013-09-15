@@ -25,7 +25,7 @@
  * 
  */
 
-namespace Boleto;
+namespace BoletophpZF2;
 
 class Module {
 
@@ -36,11 +36,11 @@ class Module {
 	public function getServiceConfig() {
 		return array(
 			'factories' => array(
-				'Boleto\Service\Bradesco' => function($sm) {
+				'BoletophpZF2\Service\Bradesco' => function($sm) {
 					$config = $sm->get('config');
 					return new Service\Bradesco($config['boleto']);
 				},
-				'Boleto\Service\BB' => function($sm) {
+				'BoletophpZF2\Service\BB' => function($sm) {
 					$config = $sm->get('config');
 					return new Service\BB($config['boleto']);
 				},

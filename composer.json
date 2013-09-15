@@ -1,30 +1,24 @@
 {
 	"name": "jotjunior/boletophp-zf2",
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/JotJunior/BoletoPHP-ZF2"
-		}
-	],
 	"type": "library",
 	"description": "Adaptação do BoletoPHP para Zend Framework 2",
-	"homepage": "https://github.com/JotJunior/BoletoPHP-ZF2",
+	"keywords": ["boleto", "php", "zf2"],
+	"homepage": "http://phpboleto-zf2.jot.com.bt",
 	"license": "GNU General Public License ",
-	"version": "0.1.0",
 	"authors": [
 		{
 			"name": "João G. Zanon Jr.",
 			"email": "jot@jot.com.br"
 		}
 	],
-	"autoload": {
-		"psr-0": {
-			"BoletophpZF2": "src/"
-		}
-	},
 	"minimum-stability": "dev",
 	"require": {
 		"php": ">=5.4.0",
 		"dino/dompdf-module": "dev-master"
+	},
+	"autoload": {
+		"psr-0": {
+			"BoletophpZF2": "src/"
+		}
 	}
 }

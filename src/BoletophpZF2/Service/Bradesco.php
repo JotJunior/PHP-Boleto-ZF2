@@ -25,10 +25,10 @@
  * 
  */
 
-namespace Boleto\Service;
+namespace BoletophpZF2\Service;
 
-use Boleto\Lib\Bradesco as BradescoLib;
-use Boleto\Model\Bradesco as BoletoModel;
+use BoletophpZF2\Lib\Bradesco as BradescoLib;
+use BoletophpZF2\Model\Bradesco as BoletoModel;
 
 class Bradesco {
 

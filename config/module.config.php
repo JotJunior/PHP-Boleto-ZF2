@@ -24,7 +24,7 @@
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
-namespace Boleto;
+namespace BoletophpZF2;
 
 return array(
 	'router' => array(
@@ -49,7 +49,7 @@ return array(
 								'format' => '(pdf|html)',
 							),
 							'defaults' => array(
-								'__NAMESPACE__' => 'Boleto\Controller',
+								'__NAMESPACE__' => 'BoletophpZF2\Controller',
 								'action' => 'index',
 								'format' => '.html',
 							),
@@ -60,7 +60,7 @@ return array(
 						'options' => array(
 							'route' => '[/:controller]/demo',
 							'defaults' => array(
-								'__NAMESPACE__' => 'Boleto\Controller',
+								'__NAMESPACE__' => 'BoletophpZF2\Controller',
 								'controller' => 'boleto',
 								'action' => 'demo',
 							),
@@ -72,8 +72,8 @@ return array(
 	),
 	'controllers' => array(
 		'invokables' => array(
-			'Boleto\Controller\Bradesco' => 'Boleto\Controller\BradescoController',
-			'Boleto\Controller\BB' => 'Boleto\Controller\BBController',
+			'BoletophpZF2\Controller\Bradesco' => 'BoletophpZF2\Controller\BradescoController',
+			'BoletophpZF2\Controller\BB' => 'BoletophpZF2\Controller\BBController',
 		),
 	),
 	'view_manager' => array(
