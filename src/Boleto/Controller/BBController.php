@@ -82,7 +82,7 @@ class BBController extends AbstractActionController {
 				break;
 			case 'pdf' :
 				$pdf = new PdfModel();
-				$pdf->setOption('filename', 'boleto-bradesco');
+				$pdf->setOption('filename', 'boleto-bb');
 				$pdf->setOption('enable_remote', true);
 				$pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
 				$pdf->setVariables(array('boleto' => $boleto));
