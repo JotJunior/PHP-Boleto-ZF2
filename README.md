@@ -26,7 +26,7 @@ Instalação
      ```php
      'Boleto',
      ```
-  6. Copie o arquivo `diretorio/do/meu/projeto/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
+  6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
 
 Créditos
 --------
