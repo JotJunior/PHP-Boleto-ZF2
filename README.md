@@ -32,7 +32,9 @@ Instalação
 Rotas
 -----
 As rotas de acesso ao módulo são:
+
 	`exemplo.com/boleto[/:controller[/:format]]` para acesso ao boleto;
+	
 	`exemplo.com/boleto[:/controller]/demo` para acesso ao formulário de exemplo;
 	 
 	OBS: são dois formatos válidos para o boleto: `html` ou `pdf`
