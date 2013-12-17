@@ -27,13 +27,13 @@
 
 namespace BoletophpZF2\Service;
 
-use BoletophpZF2\Lib\BB as BBLib;
-use BoletophpZF2\Model\BB as BoletoModel;
+use BoletophpZF2\Lib\Cef as CefLib;
+use BoletophpZF2\Model\Cef as BoletoModel;
 
-class BB {
+class Cef {
 
 	protected $config;
-	protected $banco = 'banco_do_brasil';
+	protected $banco = 'caixa';
 	protected $boleto;
 
 	public function __construct(array $config) {
@@ -44,16 +44,15 @@ class BB {
 
 		// montando dados provenientes do CONFIG
 		$this->boleto->setCodigoBanco($config['bancos'][$this->banco]['codigo']);
-		$this->boleto->setCodigoBancoComDV(BBLib::geraCodigoBanco($config['bancos'][$this->banco]['codigo']));
+		$this->boleto->setCodigoBancoComDV(cefLib::geraCodigoBanco($config['bancos'][$this->banco]['codigo']));
 		$this->boleto->setNumMoeda(9);
 
-		$this->boleto->setAgencia(BBLib::formataNumero($config['bancos'][$this->banco]['agencia'], 4, 0));
-		$this->boleto->setConta(BBLib::formataNumero($config['bancos'][$this->banco]['conta'], 8, 0));
+		$this->boleto->setAgencia(cefLib::formataNumero($config['bancos'][$this->banco]['agencia'], 4, 0));
+		$this->boleto->setConta(cefLib::formataNumero($config['bancos'][$this->banco]['conta'], 8, 0));
 		$this->boleto->setCarteira($config['bancos'][$this->banco]['carteira']);
-		$this->boleto->setVariacaoCarteira($config['bancos'][$this->banco]['variacao_carteira']);
-
-		$this->boleto->setConvenio($config['bancos'][$this->banco]['convenio']);
-		$this->boleto->setContrato($config['bancos'][$this->banco]['contrato']);
+		
+		$this->boleto->setContaCedente($config['bancos'][$this->banco]['conta_cedente']);
+		$this->boleto->setContaCedenteDv($config['bancos'][$this->banco]['conta_cedente_dv']);
 
 		$this->boleto->setCpfCnpj($config['dados_cedente']['cpf_cnpj']);
 		$this->boleto->setIdentificacao($config['dados_cedente']['identificacao']);
@@ -83,7 +82,7 @@ class BB {
 
 		// definindo data de vencimento e calculando fator do vencimento
 		$this->boleto->setDataVencimento($data['dataVencimento']);
-		$fatorVencimento = BBLib::fatorVencimento($data['dataVencimento']);
+		$fatorVencimento = cefLib::fatorVencimento($data['dataVencimento']);
 
 		// guardando valor do boleto somado à taxa do registro
 		$valor = preg_replace("/[^\d]/", "", $data['valor']);
@@ -91,10 +90,10 @@ class BB {
 		$this->boleto->setValor($valor + (float) $taxa);
 		$this->boleto->setValorBoleto(number_format(($valor + (float) $taxa) / 100, 2, ",", ""));
 		$this->boleto->setValorCobrado($valor / 100);
-		$valorProcessado = BBLib::formataNumero(($valor + (float) $taxa), 10, 0, "valor");
+		$valorProcessado = cefLib::formataNumero(($valor + (float) $taxa), 10, 0, "valor");
 
 		// agencia bancaria formatada
-		$agenciaCodigo = $this->boleto->getAgencia() . '-' . BBLib::modulo11($this->boleto->getAgencia()) . ' / ' . $this->boleto->getConta() . '-' . BBLib::modulo11($this->boleto->getConta());
+		$agenciaCodigo = $this->boleto->getAgencia() . '-' . cefLib::modulo11($this->boleto->getAgencia()) . ' / ' . $this->boleto->getConta() . '-' . cefLib::modulo11($this->boleto->getConta());
 
 		// usado quando convenio tem 7 digitos
 		$livreZeros = '000000';
@@ -104,36 +103,36 @@ class BB {
 
 		switch ($this->boleto->getFormatacaoConvenio()) {
 			case 8 :
-				$convenioProcessado = BBLib::formataNumero($this->boleto->getConvenio(), 8, 0, 'convenio');
-				$nossoNumeroProcessado = BBLib::formataNumero($this->boleto->getNossoNumero(), 9, 0);
-				$DV = BBLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira());
+				$convenioProcessado = cefLib::formataNumero($this->boleto->getConvenio(), 8, 0, 'convenio');
+				$nossoNumeroProcessado = cefLib::formataNumero($this->boleto->getNossoNumero(), 9, 0);
+				$DV = cefLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira());
 				$strLinha = $this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $DV . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira();
-				$nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado . '-' . BBLib::modulo11($convenioProcessado . $nossoNumeroProcessado);
+				$nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado . '-' . cefLib::modulo11($convenioProcessado . $nossoNumeroProcessado);
 
 				break;
 				;
 			case 7 :
-				$convenioProcessado = BBLib::formataNumero($this->boleto->getConvenio(), 7, 0, 'convenio');
-				$nossoNumeroProcessado = BBLib::formataNumero($this->boleto->getNossoNumero(), 10, 0);
-				$DV = BBLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira());
+				$convenioProcessado = cefLib::formataNumero($this->boleto->getConvenio(), 7, 0, 'convenio');
+				$nossoNumeroProcessado = cefLib::formataNumero($this->boleto->getNossoNumero(), 10, 0);
+				$DV = cefLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira());
 				$strLinha = $this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $DV . $fatorVencimento . $valorProcessado . $livreZeros . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getCarteira();
 				$nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado;
 
 				break;
 			case 6 :
-				$convenioProcessado = BBLib::formataNumero($this->boleto->getConvenio(), 6, 0, 'convenio');
+				$convenioProcessado = cefLib::formataNumero($this->boleto->getConvenio(), 6, 0, 'convenio');
 
 				switch ($this->boleto->getFormatacaoNossoNumero()) {
 					case 1 :
-						$nossoNumeroProcessado = BBLib::formataNumero($this->boleto->getNossoNumero(), 5, 0);
-						$DV = BBLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getAgencia() . $this->boleto->getConta() . $this->boleto->getCarteira());
+						$nossoNumeroProcessado = cefLib::formataNumero($this->boleto->getNossoNumero(), 5, 0);
+						$DV = cefLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getAgencia() . $this->boleto->getConta() . $this->boleto->getCarteira());
 						$strLinha = $this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $DV . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $this->boleto->getAgencia() . $this->boleto->getConta() . $this->boleto->getCarteira();
-						$nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado . '-' . BBLib::modulo11($convenioProcessado . $nossoNumeroProcessado);
+						$nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado . '-' . cefLib::modulo11($convenioProcessado . $nossoNumeroProcessado);
 						break;
 					case 2 :
 						$numeroServico = 21;
-						$nossoNumeroProcessado = BBLib::formataNumero($this->boleto->getNossoNumero(), 17, 0);
-						$DV = BBLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $numeroServico);
+						$nossoNumeroProcessado = cefLib::formataNumero($this->boleto->getNossoNumero(), 17, 0);
+						$DV = cefLib::modulo11($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $numeroServico);
 						$strLinha = $this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $DV . $fatorVencimento . $valorProcessado . $convenioProcessado . $nossoNumeroProcessado . $numeroServico;
 						$nossoNumeroFormatado = $nossoNumeroProcessado;
 						break;
@@ -142,8 +141,8 @@ class BB {
 				break;
 		}
 
-		$this->boleto->setCodigoDeBarras(BBLib::formataCodigoDeBarras($strLinha));
-		$this->boleto->setLinhaDigitavel(BBLib::montaLinhaDigitavel($strLinha));
+		$this->boleto->setCodigoDeBarras(cefLib::formataCodigoDeBarras($strLinha));
+		$this->boleto->setLinhaDigitavel(cefLib::montaLinhaDigitavel($strLinha));
 		$this->boleto->setAgenciaCodigo($agenciaCodigo);
 		$this->boleto->setNossoNumeroFormatado($nossoNumeroFormatado);
 

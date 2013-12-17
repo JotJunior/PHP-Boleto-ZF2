@@ -1,5 +1,7 @@
 <?php
 
+namespace BoletophpZF2\Model;
+
 /**
  * BoletoPhp ZF2 - Versão Beta 
  * 
@@ -24,42 +26,31 @@
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
+class Cef extends Boleto {
 
-namespace BoletophpZF2;
+	protected $agencia;
+	protected $conta;
+	protected $contaDv;
+	protected $contaCedente;
+	protected $contaCedenteDv;
+	protected $carteira = 'SR';
 
-class Module {
-
-	public function getConfig() {
-		return include __DIR__ . '/../../config/module.config.php';
+	public function getContaCedente() {
+		return $this->contaCedente;
 	}
 
-	public function getServiceConfig() {
-		return array(
-			'factories' => array(
-				'BoletophpZF2\Service\Bradesco' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\Bradesco($config['boleto']);
-				},
-				'BoletophpZF2\Service\BB' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\BB($config['boleto']);
-				},
-				'BoletophpZF2\Service\Cef' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\Cef($config['boleto']);
-				},
-			)
-		);
+	public function setContaCedente($contaCedente) {
+		$this->contaCedente = $contaCedente;
+		return $this;
 	}
-	
-	public function getAutoloaderConfig() {
-		return array(
-			'Zend\Loader\StandardAutoloader' => array(
-				'namespaces' => array(
-					__NAMESPACE__ => __DIR__ ,
-				),
-			),
-		);
+
+	public function getContaCedenteDv() {
+		return $this->contaCedenteDv;
+	}
+
+	public function setContaCedenteDv($contaCedenteDv) {
+		$this->contaCedenteDv = $contaCedenteDv;
+		return $this;
 	}
 
 }

@@ -1,4 +1,5 @@
 Coordenador Projeto BoletoPhp - Elizeu Alcantara 
+Conversão para ZendFramework 2 - João G. "Jot" Zanon Jr.
 Projeto PhpBoleto - João Prado Maia e Pablo Martins F. Costa
 Projeto BBBoletoFree - Daniel William Schultz
 Boleto Banco do Brasil - Daniel William Schultz / Leandro Maniezo / Rogério Dias Pereira / Romeu Medeiros

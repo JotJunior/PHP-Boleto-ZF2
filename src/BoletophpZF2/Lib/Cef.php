@@ -27,9 +27,9 @@
 
 namespace BoletophpZF2\Lib;
 
-class BB extends Boleto {
+class Cef extends Boleto {
 
-	const banco = 'banco_do_brasil';
+	const banco = 'caixa';
 
 	/**
 	 * @author Ramon Soares

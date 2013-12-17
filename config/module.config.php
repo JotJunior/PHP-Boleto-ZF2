@@ -74,6 +74,7 @@ return array(
 		'invokables' => array(
 			'BoletophpZF2\Controller\Bradesco' => 'BoletophpZF2\Controller\BradescoController',
 			'BoletophpZF2\Controller\BB' => 'BoletophpZF2\Controller\BBController',
+			'BoletophpZF2\Controller\Cef' => 'BoletophpZF2\Controller\CefController',
 		),
 	),
 	'view_manager' => array(

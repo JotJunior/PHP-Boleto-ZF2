@@ -39,8 +39,8 @@ class Bradesco extends Boleto {
 	 * @param string $numero
 	 * @return int
 	 */
-	public function digitoVerificadorNossoNumero($numero) {
-		$resto2 = $this->modulo11($numero, 7, 1);
+	public static function digitoVerificadorNossoNumero($numero) {
+		$resto2 = self::modulo11($numero, 7, 1);
 		$digito = 11 - $resto2;
 		if ($digito == 10) {
 			$dv = "P";
@@ -72,27 +72,27 @@ class Bradesco extends Boleto {
 	 * @param string $codigo
 	 * @return string
 	 */
-	public function montaLinhaDigitavel($codigo) {
+	public static function montaLinhaDigitavel($codigo) {
 
 		// 1. Campo - composto pelo código do banco, código da moeda, as cinco primeiras posições
 		// do campo livre e DV (modulo10) deste campo
 		$p1 = substr($codigo, 0, 4); // Numero do banco + Carteira
 		$p2 = substr($codigo, 19, 5);   // 5 primeiras posiÁıes do campo livre
-		$p3 = $this->modulo10("$p1$p2");   // Digito do campo 1
+		$p3 = self::modulo10("$p1$p2");   // Digito do campo 1
 		$p4 = $p1 . $p2 . $p3;  // União
 		$campo1 = substr($p4, 0, 5) . '.' . substr($p4, 5);
 
 		// 2. Campo - composto pelas posiÁoes 6 a 15 do campo livre
 		// e livre e DV (modulo10) deste campo
 		$p1 = substr($codigo, 24, 10);   //PosiÁıes de 6 a 15 do campo livre
-		$p2 = $this->modulo10($p1);  //Digito do campo 2	
+		$p2 = self::modulo10($p1);  //Digito do campo 2	
 		$p3 = $p1 . $p2;
 		$campo2 = substr($p3, 0, 5) . '.' . substr($p3, 5);
 
 		// 3. Campo composto pelas posicoes 16 a 25 do campo livre
 		// e livre e DV (modulo10) deste campo
 		$p1 = substr($codigo, 34, 10);   //PosiÁıes de 16 a 25 do campo livre
-		$p2 = $this->modulo10($p1);  //Digito do Campo 3
+		$p2 = self::modulo10($p1);  //Digito do Campo 3
 		$p3 = $p1 . $p2;
 		$campo3 = substr($p3, 0, 5) . '.' . substr($p3, 5);
 

@@ -39,24 +39,21 @@ class Bradesco {
 	public function __construct(array $config) {
 		$this->config = $config;
 
-		// instanciando a LIB do boleto para cálculos necessários
-		$bradesco = new BradescoLib;
-
 		// instanciando o MODEL para guardar os dados do boleto
 		$this->boleto = new BoletoModel;
 
 		// montando dados provenientes do CONFIG
 		$this->boleto->setCodigoBanco($config['bancos'][$this->banco]['codigo']);
-		$this->boleto->setCodigoBancoComDV($bradesco->geraCodigoBanco($config['bancos'][$this->banco]['codigo']));
+		$this->boleto->setCodigoBancoComDV(bradescolib::geraCodigoBanco($config['bancos'][$this->banco]['codigo']));
 		$this->boleto->setNumMoeda(9);
 		
-		$this->boleto->setAgencia($bradesco->formataNumero($config['bancos'][$this->banco]['agencia'], 4, 0));
-		$this->boleto->setAgenciaDV($bradesco->formataNumero($config['bancos'][$this->banco]['agenciaDV'], 1, 0));
-		$this->boleto->setConta($bradesco->formataNumero($config['bancos'][$this->banco]['conta'], 6, 0));
-		$this->boleto->setContaDV($bradesco->formataNumero($config['bancos'][$this->banco]['contaDV'], 1, 0));
+		$this->boleto->setAgencia(bradescolib::formataNumero($config['bancos'][$this->banco]['agencia'], 4, 0));
+		$this->boleto->setAgenciaDV(bradescolib::formataNumero($config['bancos'][$this->banco]['agenciaDV'], 1, 0));
+		$this->boleto->setConta(bradescolib::formataNumero($config['bancos'][$this->banco]['conta'], 6, 0));
+		$this->boleto->setContaDV(bradescolib::formataNumero($config['bancos'][$this->banco]['contaDV'], 1, 0));
 		$this->boleto->setCarteira($config['bancos'][$this->banco]['carteira']);
-		$this->boleto->setContaCedente($bradesco->formataNumero($config['bancos'][$this->banco]['contaCedente'], 7, 0));
-		$this->boleto->setContaCedenteDV($bradesco->formataNumero($config['bancos'][$this->banco]['contaCedenteDV'], 1, 0));
+		$this->boleto->setContaCedente(bradescolib::formataNumero($config['bancos'][$this->banco]['contaCedente'], 7, 0));
+		$this->boleto->setContaCedenteDV(bradescolib::formataNumero($config['bancos'][$this->banco]['contaCedenteDV'], 1, 0));
 		$this->boleto->setCpfCnpj($config['dados_cedente']['cpf_cnpj']);
 		$this->boleto->setIdentificacao($config['dados_cedente']['identificacao']);
 		$this->boleto->setEnderecoCedente($config['dados_cedente']['endereco']);
@@ -76,16 +73,13 @@ class Bradesco {
 
 	public function prepare($data) {
 
-		// instanciando a LIB do boleto para cálculos necessários
-		$bradesco = new BradescoLib;
-
 		$this->boleto->setNossoNumero($data['nossoNumero']);
 
-		$nossoNumeroProcessado = $bradesco->formataNumero($this->config['bancos'][$this->banco]['carteira'], 2, 0) . $bradesco->formataNumero($data["nossoNumero"], 11, 0);
-		$nossoNumeroDV = $bradesco->digitoVerificadorNossoNumero($nossoNumeroProcessado);
+		$nossoNumeroProcessado = bradescolib::formataNumero($this->config['bancos'][$this->banco]['carteira'], 2, 0) . bradescolib::formataNumero($data["nossoNumero"], 11, 0);
+		$nossoNumeroDV = bradescolib::digitoVerificadorNossoNumero($nossoNumeroProcessado);
 
 		$this->boleto->setDataVencimento($data['dataVencimento']);
-		$fatorVencimento = $bradesco->fatorVencimento($data['dataVencimento']);
+		$fatorVencimento = bradescolib::fatorVencimento($data['dataVencimento']);
 
 		$valor = preg_replace("/[^\d]/", "", $data['valor']);
 		$taxa = preg_replace("/[^\d]/", "", $this->boleto->getTaxaBoleto());
@@ -93,9 +87,9 @@ class Bradesco {
 		$this->boleto->setValorBoleto(number_format(($valor + (float) $taxa) / 100, 2, ",", ""));
 		$this->boleto->setValorCobrado($valor / 100);
 
-		$valorProcessado = $bradesco->formataNumero(($valor + (float) $taxa), 10, 0, "valor");
+		$valorProcessado = bradescolib::formataNumero(($valor + (float) $taxa), 10, 0, "valor");
 
-		$DV = $bradesco->digitoVerificadorBarra($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $this->boleto->getAgencia() . $nossoNumeroProcessado . $this->boleto->getContaCedente() . '0');
+		$DV = bradescolib::digitoVerificadorBarra($this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $fatorVencimento . $valorProcessado . $this->boleto->getAgencia() . $nossoNumeroProcessado . $this->boleto->getContaCedente() . '0');
 
 		$strLinha = $this->boleto->getCodigoBanco() . $this->boleto->getNumMoeda() . $DV . $fatorVencimento . $valorProcessado . $this->boleto->getAgencia() . $nossoNumeroProcessado . $this->boleto->getContaCedente() . '0';
 
@@ -103,8 +97,8 @@ class Bradesco {
 
 		$agenciaCodigo = $this->boleto->getAgencia() . '-' . $this->boleto->getAgenciaDV() . ' / ' . $this->boleto->getContaCedente() . '-' . $this->boleto->getContaCedenteDV();
 
-		$this->boleto->setCodigoDeBarras($bradesco->formataCodigoDeBarras($strLinha));
-		$this->boleto->setLinhaDigitavel($bradesco->montaLinhaDigitavel($strLinha));
+		$this->boleto->setCodigoDeBarras(bradescolib::formataCodigoDeBarras($strLinha));
+		$this->boleto->setLinhaDigitavel(bradescolib::montaLinhaDigitavel($strLinha));
 		$this->boleto->setAgenciaCodigo($agenciaCodigo);
 		$this->boleto->setNossoNumeroFormatado($nossoNumeroFormatado);
 

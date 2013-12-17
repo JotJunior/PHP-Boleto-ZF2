@@ -29,20 +29,19 @@ namespace BoletophpZF2\Lib;
 
 abstract class Boleto {
 
-	protected $fBarcodeFino = 1;
-	protected $fBarcodeLargo = 3;
-	protected $fBarcodeAltura = 50;
-	protected $fBarcodeImgB = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
-	protected $fBarcodeImgP = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
-	protected $barcodeData;
+	const fBarcodeFino = 1;
+	const fBarcodeLargo = 3;
+	const fBarcodeAltura = 50;
+	const fBarcodeImgB = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEX///+nxBvIAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
+	const fBarcodeImgP = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAABQAQMAAAAa6XZvAAAAA1BMVEUAAACnej3aAAAADElEQVR42mNgGFkAAADwAAE4aVpRAAAAAElFTkSuQmCC';
 
 	/**
 	 * Gera o dígito verificador do código de barras
 	 * @param int $numero
 	 * @return int
 	 */
-	public function digitoVerificadorBarra($numero) {
-		$resto2 = $this->modulo11($numero, 9, 1);
+	public static function digitoVerificadorBarra($numero) {
+		$resto2 = self::modulo11($numero, 9, 1);
 		if ($resto2 == 0 || $resto2 == 1 || $resto2 == 10) {
 			$dv = 1;
 		} else {
@@ -60,7 +59,7 @@ abstract class Boleto {
 	 * @param string $tipo
 	 * @return string
 	 */
-	public function formataNumero($numero, $loop, $insert, $tipo = "geral") {
+	public static function formataNumero($numero, $loop, $insert, $tipo = "geral") {
 		if ($tipo == "geral") {
 			$numero = str_replace(",", "", $numero);
 			while (strlen($numero) < $loop) {
@@ -91,8 +90,8 @@ abstract class Boleto {
 	 * @param string $valor
 	 * @return string
 	 */
-	public function formataCodigoDeBarras($valor) {
-
+	public static function formataCodigoDeBarras($valor) {
+		
 		// binários do código de barras
 		$barcodes[0] = "00110";
 		$barcodes[1] = "10001";
@@ -116,10 +115,10 @@ abstract class Boleto {
 			}
 		}
 
-		$this->barcodeData = '<img src="' . $this->fBarcodeImgP . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgB . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgP . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgB . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
+		$barcodeData = '<img src="' . self::fBarcodeImgP . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgB . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgP . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgB . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
 
 		$texto = $valor;
 		if ((strlen($texto) % 2) <> 0) {
@@ -127,31 +126,31 @@ abstract class Boleto {
 		}
 
 		while (strlen($texto) > 0) {
-			$i = round($this->esquerda($texto, 2));
-			$texto = $this->direita($texto, strlen($texto) - 2);
+			$i = round(self::esquerda($texto, 2));
+			$texto = self::direita($texto, strlen($texto) - 2);
 			$f = $barcodes[$i];
 			for ($i = 1; $i < 11; $i+=2) {
 				if (substr($f, ($i - 1), 1) == "0") {
-					$f1 = $this->fBarcodeFino;
+					$f1 = self::fBarcodeFino;
 				} else {
-					$f1 = $this->fBarcodeLargo;
+					$f1 = self::fBarcodeLargo;
 				}
-				$this->barcodeData .= '<img src="' . $this->fBarcodeImgP . '" width="' . $f1 . '" height="' . $this->fBarcodeAltura . '" />';
+				$barcodeData .= '<img src="' . self::fBarcodeImgP . '" width="' . $f1 . '" height="' . self::fBarcodeAltura . '" />';
 
 				if (substr($f, $i, 1) == "0") {
-					$f2 = $this->fBarcodeFino;
+					$f2 = self::fBarcodeFino;
 				} else {
-					$f2 = $this->fBarcodeLargo;
+					$f2 = self::fBarcodeLargo;
 				}
-				$this->barcodeData .= '<img src="' . $this->fBarcodeImgB . '" width="' . $f2 . '" height="' . $this->fBarcodeAltura . '" />';
+				$barcodeData .= '<img src="' . self::fBarcodeImgB . '" width="' . $f2 . '" height="' . self::fBarcodeAltura . '" />';
 			}
 		}
 
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgP . '" width="' . $this->fBarcodeLargo . '" height="' . $this->fBarcodeAltura . '" />';
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgB . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
-		$this->barcodeData .= '<img src="' . $this->fBarcodeImgP . '" width="' . $this->fBarcodeFino . '" height="' . $this->fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgP . '" width="' . self::fBarcodeLargo . '" height="' . self::fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgB . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
+		$barcodeData .= '<img src="' . self::fBarcodeImgP . '" width="' . self::fBarcodeFino . '" height="' . self::fBarcodeAltura . '" />';
 
-		return $this->barcodeData;
+		return $barcodeData;
 	}
 
 	/**
@@ -160,7 +159,7 @@ abstract class Boleto {
 	 * @param int $comp
 	 * @return string
 	 */
-	public function esquerda($entra, $comp) {
+	public static function esquerda($entra, $comp) {
 		return substr($entra, 0, $comp);
 	}
 
@@ -171,7 +170,7 @@ abstract class Boleto {
 	 * @param int $comp
 	 * @return string
 	 */
-	public function direita($entra, $comp) {
+	public static function direita($entra, $comp) {
 		return substr($entra, strlen($entra) - $comp, $comp);
 	}
 
@@ -180,13 +179,13 @@ abstract class Boleto {
 	 * @param string $data
 	 * @return int
 	 */
-	public function fatorVencimento($data) {
+	public static function fatorVencimento($data) {
 		if ($data != "") {
 			$data = explode("/", $data);
 			$ano = $data[2];
 			$mes = $data[1];
 			$dia = $data[0];
-			return(abs(($this->dataParaDias("1997", "10", "07")) - ($this->dataParaDias($ano, $mes, $dia))));
+			return(abs((self::dataParaDias("1997", "10", "07")) - (self::dataParaDias($ano, $mes, $dia))));
 		} else {
 			return "0000";
 		}
@@ -200,7 +199,7 @@ abstract class Boleto {
 	 * @param int $dia
 	 * @return int
 	 */
-	public function dataParaDias($ano, $mes, $dia) {
+	public static function dataParaDias($ano, $mes, $dia) {
 		$seculo = substr($ano, 0, 2);
 		$ano = substr($ano, 2, 2);
 		if ($mes > 2) {
@@ -226,7 +225,7 @@ abstract class Boleto {
 	 * @param int $num
 	 * @return int
 	 */
-	public function modulo10($num) {
+	public static function modulo10($num) {
 		$numtotal10 = 0;
 		$fator = 2;
 
@@ -279,7 +278,7 @@ abstract class Boleto {
 	 * @return int
 	 * 
 	 */
-	public function modulo11($num, $base = 9, $r = 0) {
+	public static function modulo11($num, $base = 9, $r = 0) {
 		$soma = 0;
 		$fator = 2;
 
@@ -317,9 +316,9 @@ abstract class Boleto {
 	 * @param int $numero
 	 * @return int
 	 */
-	public function geraCodigoBanco($numero) {
+	public static function geraCodigoBanco($numero) {
 		$parte1 = substr($numero, 0, 3);
-		$parte2 = $this->modulo11($parte1);
+		$parte2 = self::modulo11($parte1);
 		return $parte1 . "-" . $parte2;
 	}
 

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * BoletoPhp ZF2 - Versão Beta 
  * 
@@ -24,42 +23,33 @@
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
+?>
 
-namespace BoletophpZF2;
-
-class Module {
-
-	public function getConfig() {
-		return include __DIR__ . '/../../config/module.config.php';
+<style type="text/css">
+	label {
+		display: block;
+		margin: 16px 0;
 	}
-
-	public function getServiceConfig() {
-		return array(
-			'factories' => array(
-				'BoletophpZF2\Service\Bradesco' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\Bradesco($config['boleto']);
-				},
-				'BoletophpZF2\Service\BB' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\BB($config['boleto']);
-				},
-				'BoletophpZF2\Service\Cef' => function($sm) {
-					$config = $sm->get('config');
-					return new Service\Cef($config['boleto']);
-				},
-			)
-		);
+	input {
+		float: right;
+		width: 300px;
 	}
-	
-	public function getAutoloaderConfig() {
-		return array(
-			'Zend\Loader\StandardAutoloader' => array(
-				'namespaces' => array(
-					__NAMESPACE__ => __DIR__ ,
-				),
-			),
-		);
-	}
+</style>
 
-}
+<h1>Demonstração do boleto CAIXA</h1>
+
+<div class="row-fluid">
+	<div style="width: 630px; clear: both;">
+		<?php
+		$form = $this->form;
+
+		$form = $this->form;
+		$form->setAttribute('action', $this->url('boleto/default', array('controller' => 'cef')))
+				->setAttribute('class', 'form form-horizontal');
+
+		echo $this->form()->openTag($form);
+		echo $this->formCollection($form);
+		echo $this->form()->closeTag();
+		?>
+	</div>
+</div>
