@@ -1,0 +1,55 @@
+<?php
+/**
+ * BoletoPhp ZF2 - Versão Beta 
+ * 
+ * Este arquivo está disponível sob a Licença GPL disponível pela Web
+ * em http://pt.wikipedia.org/wiki/GNU_General_Public_License 
+ * Você deve ter recebido uma cópia da GNU Public License junto com
+ * este pacote; se não, escreva para: 
+ * 
+ * Free Software Foundation, Inc.
+ * 59 Temple Place - Suite 330
+ * Boston, MA 02111-1307, USA.
+ * 
+ * Originado do Projeto BBBoletoFree que tiveram colaborações de Daniel
+ * William Schultz e Leandro Maniezo que por sua vez foi derivado do
+ * PHPBoleto de João Prado Maia e Pablo Martins F. Costa
+ * 
+ * Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)
+ * Acesse o site do Projeto BoletoPhp: www.boletophp.com.br 
+ * 
+ * Equipe Coordenação Projeto BoletoPhp: <boletophp@boletophp.com.br> 
+ * 
+ * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
+ * 
+ */
+?>
+
+<style type="text/css">
+    label {
+        display: block;
+        margin: 16px 0;
+    }
+    input {
+        float: right;
+        width: 300px;
+    }
+</style>
+
+<h1>Demonstração do boleto CAIXA</h1>
+
+<div class="row-fluid">
+    <div style="width: 630px; clear: both;">
+        <?php
+        $form = $this->form;
+
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('boleto/default', array('controller' => 'caixa-sigcb')))
+                ->setAttribute('class', 'form form-horizontal');
+
+        echo $this->form()->openTag($form);
+        echo $this->formCollection($form);
+        echo $this->form()->closeTag();
+        ?>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BoletoPhp ZF2 - Versão Beta 
+ * PHP Boleto ZF2 - Versão Beta 
  * 
  * Este arquivo está disponível sob a Licença GPL disponível pela Web
  * em http://pt.wikipedia.org/wiki/GNU_General_Public_License 
@@ -12,82 +12,78 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto BBBoletoFree que tiveram colaborações de Daniel
- * William Schultz e Leandro Maniezo que por sua vez foi derivado do
- * PHPBoleto de João Prado Maia e Pablo Martins F. Costa
- * 
- * Se vc quer colaborar, nos ajude a desenvolver p/ os demais bancos :-)
- * Acesse o site do Projeto BoletoPhp: www.boletophp.com.br 
- * 
- * Equipe Coordenação Projeto BoletoPhp: <boletophp@boletophp.com.br> 
+ * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
  */
-namespace BoletophpZF2;
+
+namespace PhpBoletoZf2;
 
 return array(
-	'router' => array(
-		'routes' => array(
-			'boleto' => array(
-				'type' => 'Literal',
-				'options' => array(
-					'route' => '/boleto',
-					'defaults' => array(
-						'lang' => 'en_US',
-					),
-				),
-				'may_terminate' => true,
-				'child_routes' => array(
-					'default' => array(
-						'type' => 'Segment',
-						'options' => array(
-							'route' => '[/:controller[/:format]]',
-							'constraints' => array(
-								'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-								'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-								'format' => '(pdf|html)',
-							),
-							'defaults' => array(
-								'__NAMESPACE__' => 'BoletophpZF2\Controller',
-								'action' => 'index',
-								'format' => '.html',
-							),
-						),
-					),
-					'demo' => array(
-						'type' => 'segment',
-						'options' => array(
-							'route' => '[/:controller]/demo',
-							'defaults' => array(
-								'__NAMESPACE__' => 'BoletophpZF2\Controller',
-								'controller' => 'boleto',
-								'action' => 'demo',
-							),
-						),
-					),
-				),
-			),
-		),
-	),
-	'controllers' => array(
-		'invokables' => array(
-			'BoletophpZF2\Controller\Bradesco' => 'BoletophpZF2\Controller\BradescoController',
-			'BoletophpZF2\Controller\BB' => 'BoletophpZF2\Controller\BBController',
-			'BoletophpZF2\Controller\Cef' => 'BoletophpZF2\Controller\CefController',
-		),
-	),
-	'view_manager' => array(
-		'display_not_found_reason' => true,
-		'display_exceptions' => true,
-		'doctype' => 'HTML5',
-		'not_found_template' => 'error/404',
-		'exception_template' => 'error/index',
-		'template_map' => array(
-			'layout/boleto' => __DIR__ . '/../view/layout/boleto.phtml',
-		),
-		'template_path_stack' => array(
-			__DIR__ . '/../view',
-		),
-	),
+    'router' => array(
+        'routes' => array(
+            'boleto' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/boleto',
+                    'defaults' => array(
+                        'lang' => 'en_US',
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type' => 'Segment',
+                        'options' => array(
+                            'route' => '[/:controller[/:format]]',
+                            'constraints' => array(
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'format' => '(pdf|html)',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'PhpBoletoZf2\Controller',
+                                'action' => 'index',
+                                'format' => '.html',
+                            ),
+                        ),
+                    ),
+                    'demo' => array(
+                        'type' => 'segment',
+                        'options' => array(
+                            'route' => '[/:controller]/demo',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'PhpBoletoZf2\Controller',
+                                'controller' => 'boleto',
+                                'action' => 'demo',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+    'controllers' => array(
+        'invokables' => array(
+            'PhpBoletoZf2\Controller\Bradesco' => 'PhpBoletoZf2\Controller\BradescoController',
+            'PhpBoletoZf2\Controller\BB' => 'PhpBoletoZf2\Controller\BBController',
+            'PhpBoletoZf2\Controller\Caixa' => 'PhpBoletoZf2\Controller\CaixaController',
+            'PhpBoletoZf2\Controller\CaixaSigcb' => 'PhpBoletoZf2\Controller\CaixaSigcbController',
+            'PhpBoletoZf2\Controller\Itau' => 'PhpBoletoZf2\Controller\ItauController',
+        ),
+    ),
+    'view_manager' => array(
+        'display_not_found_reason' => true,
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
+        'template_map' => array(
+            'layout/boleto' => __DIR__ . '/../view/layout/boleto.phtml',
+        ),
+        'template_path_stack' => array(
+            __DIR__ . '/../view',
+        ),
+    ),
 );

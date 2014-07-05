@@ -1,2 +1,2 @@
 <?php
-include_once('src/BoletophpZF2/Module.php');
+include_once('src/PhpBoletoZF2/Module.php');

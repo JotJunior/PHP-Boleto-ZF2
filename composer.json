@@ -1,24 +1,24 @@
 {
-	"name": "jotjunior/boletophp-zf2",
-	"type": "library",
-	"description": "Adaptação do BoletoPHP para Zend Framework 2",
-	"keywords": ["boleto", "php", "zf2"],
-	"homepage": "http://phpboleto-zf2.jot.com.bt",
-	"license": "GNU General Public License ",
-	"authors": [
-		{
-			"name": "João G. Zanon Jr.",
-			"email": "jot@jot.com.br"
-		}
-	],
-	"minimum-stability": "dev",
-	"require": {
-		"php": ">=5.4.0",
-		"dino/dompdf-module": "dev-master"
-	},
-	"autoload": {
-		"psr-0": {
-			"BoletophpZF2": "src/"
-		}
-	}
+    "name": "jotjunior/php-boleto-zf2",
+    "type": "module",
+    "description": "Adaptação do BoletoPHP para Zend Framework 2",
+    "keywords": ["boleto", "php", "zf2"],
+    "homepage": "http://phpboleto-zf2.jot.com.bt",
+    "license": "GNU General Public License ",
+    "authors": [
+        {
+            "name": "João G. Zanon Jr.",
+            "email": "jot@jot.com.br"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "dino/dompdf-module": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "PhpBoletoZf2": "src/"
+        }
+    }
 }
