@@ -44,6 +44,9 @@ class Boleto extends Form {
 		$this->add((new Element\Number)->setName('valor')->setLabel('Valor')->setValue($val = rand(1000, 2000) * 100));
 		$this->add((new Element\Number)->setName('valorUnitario')->setLabel('Valor Unitário')->setValue($val));
 		$this->add((new Element\Number)->setName('quantidade')->setLabel('Quantidade')->setValue(1));
+		$this->add((new Element\Number)->setName('demonstrativo1')->setLabel('Demonstrativo 1')->setValue('Dados do produto ou serviço que foi vendido'));
+		$this->add((new Element\Number)->setName('demonstrativo2')->setLabel('Demonstrativo 2')->setValue('que deve ser aproveitado em 3 únicas linhas de '));
+		$this->add((new Element\Number)->setName('demonstrativo3')->setLabel('Demonstrativo 3')->setValue('até 50 caracteres'));
 
 		$this->add((new Element\Submit)->setName('enviar')->setValue('Enviar'));
 	}

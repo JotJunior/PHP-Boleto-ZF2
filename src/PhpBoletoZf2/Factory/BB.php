@@ -36,7 +36,6 @@ class BB extends AbstractBoletoFactory
         /**
          * adicionando dados das instruções e demonstrativo no boleto
          */
-        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['demonstrativos'], $this->getBoleto());
         (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
 
         /**
