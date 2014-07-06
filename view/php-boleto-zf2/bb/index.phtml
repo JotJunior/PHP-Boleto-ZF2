@@ -358,8 +358,18 @@
     <body>
         <div id="container">
             <div id="instr_header">
-                <h1><?php echo $this->dados->getCedente()->getIdentificacao(); ?> <?php echo $this->dados->getCedente()->getDocumento() ?></h1>
-                <address><?php echo $this->dados->getCedente()->getCidade() . ', ' . $this->dados->getCedente()->getUf(); ?></address>
+                <h1><?php echo $this->dados->getCedente()->getIdentificacao(); ?></h1>
+                <address>
+                    <?php echo $this->dados->getCedente()->getDocumento() ?>
+                    <br />
+                    <?php echo $this->dados->getCedente()->getIdentificacao(); ?> <?php echo $this->dados->getCedente()->getDocumento() ?>
+                    <br />
+                    <?php echo $this->dados->getCedente()->getEndereco() ?>
+                    <br />
+                    <?php echo $this->dados->getCedente()->getCidade() . '/' . $this->dados->getCedente()->getUf() ?>
+                    <br />
+                    
+                </address>
             </div><!-- id="instr_header" -->
             <div id="">
                 <!--

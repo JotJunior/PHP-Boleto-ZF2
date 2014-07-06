@@ -1,7 +1,26 @@
 <?php
 
+/**
+ * PHP Boleto ZF2 - Versão Beta 
+ * 
+ * Este arquivo está disponível sob a Licença GPL disponível pela Web
+ * em http://pt.wikipedia.org/wiki/GNU_General_Public_License 
+ * Você deve ter recebido uma cópia da GNU Public License junto com
+ * este pacote; se não, escreva para: 
+ * 
+ * Free Software Foundation, Inc.
+ * 59 Temple Place - Suite 330
+ * Boston, MA 02111-1307, USA.
+ * 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
+ * 
+ * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
+ * 
+ */
+
 namespace PhpBoletoZf2\Factory;
 
+use Zend\Stdlib\Hydrator\ClassMethods;
 use PhpBoletoZf2\Factory\AbstractBoletoFactory;
 use PhpBoletoZf2\Lib\Util;
 use Zend\Barcode\Barcode;
@@ -13,6 +32,12 @@ class BB extends AbstractBoletoFactory
 
     public function prepare()
     {
+        
+        /**
+         * adicionando dados das instruções e demonstrativo no boleto
+         */
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['demonstrativos'], $this->getBoleto());
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
 
         /**
          * Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)

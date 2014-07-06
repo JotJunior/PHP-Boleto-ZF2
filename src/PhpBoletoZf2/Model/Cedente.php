@@ -12,7 +12,7 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
@@ -72,6 +72,12 @@ class Cedente implements CedenteInterface
      * @var int|string Dígito da conta corrente 
      */
     protected $contaCorrenteDv;
+
+    /**
+     *
+     * @var string Endereço (Rua, número, complemento, bairro) 
+     */
+    protected $endereco;
 
     /**
      *
@@ -143,14 +149,14 @@ class Cedente implements CedenteInterface
         return $this->documento;
     }
 
-    public function getNomeCedente()
-    {
-        return $this->nomeCedente;
-    }
-
     public function getIdentificacao()
     {
         return $this->identificacao;
+    }
+
+    public function getNomeCedente()
+    {
+        return $this->nomeCedente;
     }
 
     public function getLogoCedente()
@@ -178,21 +184,76 @@ class Cedente implements CedenteInterface
         return $this->contaCorrenteDv;
     }
 
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
+
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
+    public function getUf()
+    {
+        return $this->uf;
+    }
+
+    public function getContaCedente()
+    {
+        return $this->contaCedente;
+    }
+
+    public function getContaCedenteDv()
+    {
+        return $this->contaCedenteDv;
+    }
+
+    public function getFormatacaoConvenio()
+    {
+        return $this->formatacaoConvenio;
+    }
+
+    public function getConvenio()
+    {
+        return $this->convenio;
+    }
+
+    public function getContrato()
+    {
+        return $this->contrato;
+    }
+
+    public function getCarteira()
+    {
+        return $this->carteira;
+    }
+
+    public function getVariacaoCarteira()
+    {
+        return $this->variacaoCarteira;
+    }
+
+    public function getAgenciaCodigo()
+    {
+        return $this->agenciaCodigo;
+    }
+
     public function setDocumento($documento)
     {
         $this->documento = $documento;
         return $this;
     }
 
-    public function setNomeCedente($nomeCedente)
-    {
-        $this->nomeCedente = $nomeCedente;
-        return $this;
-    }
-
     public function setIdentificacao($identificacao)
     {
         $this->identificacao = $identificacao;
+        return $this;
+    }
+
+    public function setNomeCedente($nomeCedente)
+    {
+        $this->nomeCedente = $nomeCedente;
         return $this;
     }
 
@@ -226,14 +287,10 @@ class Cedente implements CedenteInterface
         return $this;
     }
 
-    public function getCidade()
+    public function setEndereco($endereco)
     {
-        return $this->cidade;
-    }
-
-    public function getUf()
-    {
-        return $this->uf;
+        $this->endereco = $endereco;
+        return $this;
     }
 
     public function setCidade($cidade)
@@ -248,36 +305,6 @@ class Cedente implements CedenteInterface
         return $this;
     }
 
-    public function getContaCedente()
-    {
-        return $this->contaCedente;
-    }
-
-    public function getContaCedenteDv()
-    {
-        return $this->contaCedenteDv;
-    }
-
-    public function getConvenio()
-    {
-        return $this->convenio;
-    }
-
-    public function getContrato()
-    {
-        return $this->contrato;
-    }
-
-    public function getCarteira()
-    {
-        return $this->carteira;
-    }
-
-    public function getVariacaoCarteira()
-    {
-        return $this->variacaoCarteira;
-    }
-
     public function setContaCedente($contaCedente)
     {
         $this->contaCedente = $contaCedente;
@@ -290,9 +317,14 @@ class Cedente implements CedenteInterface
         return $this;
     }
 
+    public function setFormatacaoConvenio($formatacaoConvenio)
+    {
+        $this->formatacaoConvenio = $formatacaoConvenio;
+        return $this;
+    }
+
     public function setConvenio($convenio)
     {
-        $this->formatacaoConvenio = strlen($convenio);
         $this->convenio = $convenio;
         return $this;
     }
@@ -315,20 +347,10 @@ class Cedente implements CedenteInterface
         return $this;
     }
 
-    public function getAgenciaCodigo()
-    {
-        return $this->agenciaCodigo;
-    }
-
     public function setAgenciaCodigo($agenciaCodigo)
     {
         $this->agenciaCodigo = $agenciaCodigo;
         return $this;
-    }
-
-    public function getFormatacaoConvenio()
-    {
-        return $this->formatacaoConvenio;
     }
 
 }

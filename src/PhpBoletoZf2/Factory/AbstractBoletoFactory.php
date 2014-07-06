@@ -12,7 +12,7 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
@@ -26,6 +26,11 @@ use PhpBoletoZf2\Model\Banco;
 
 abstract class AbstractBoletoFactory implements FactoryInterface
 {
+    
+    /**
+     * @var array dados do arquivo de configurção
+     */
+    protected $config;
 
     /**
      * @var string 
@@ -59,7 +64,7 @@ abstract class AbstractBoletoFactory implements FactoryInterface
         /**
          * Buscando o arquivo de configuração
          */
-        $config = $serviceLocator->get('config');
+        $this->config = $serviceLocator->get('config');
 
         /**
          * Pré-instancia o banco
@@ -72,8 +77,8 @@ abstract class AbstractBoletoFactory implements FactoryInterface
         /**
          * Pré instancia o cedente com dados vindos do arquivo de configuração
          */
-        if (isset($config['boleto']) && isset($config['boleto'][$this->banco->getCodigoBanco()]) && isset($config['boleto'][$this->banco->getCodigoBanco()]['dados_cedente'])) {
-            $this->cedente = new Cedente($config['boleto'][$this->banco->getCodigoBanco()]['dados_cedente']);
+        if (isset($this->config['php-zf2-boleto']) && isset($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]) && isset($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente'])) {
+            $this->cedente = new Cedente($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente']);
         }
 
         return $this;

@@ -60,9 +60,11 @@
                 </td>
                 <td class=ti width=455>
                     <?php echo $this->dados->getCedente()->getIdentificacao(); ?> <?php echo $this->dados->getCedente()->getDocumento() ?>
-                    <br />
-                    <?php echo $this->dados->getCedente()->getCidade() . '/' . $this->dados->getCedente()->getUf(); ?>
-                    <br />
+                    <br>
+                    <?php echo $this->dados->getCedente()->getEndereco() ?>
+                    <br>
+                    <?php echo $this->dados->getCedente()->getCidade() . '/' . $this->dados->getCedente()->getUf() ?>
+                    <br>
                 </td>
                 <td align=RIGHT width=150 class=ti>&nbsp;</td>
             </tr>

@@ -12,7 +12,7 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
@@ -20,6 +20,7 @@
 
 namespace PhpBoletoZf2\Factory;
 
+use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Barcode\Barcode;
 use PhpBoletoZf2\Factory\AbstractBoletoFactory;
 use PhpBoletoZf2\Lib\Util;
@@ -31,6 +32,12 @@ class CaixaSigcb extends AbstractBoletoFactory
 
     public function prepare()
     {
+
+        /**
+         * adicionando dados das instruções e demonstrativo no boleto
+         */
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['demonstrativos'], $this->getBoleto());
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
 
         /**
          * Compondo o Nosso Número e seu dígito verificador

@@ -12,7 +12,7 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
@@ -27,7 +27,7 @@ use PhpBoletoZf2\Model\BoletoBradesco;
 use PhpBoletoZf2\Model\Banco;
 use PhpBoletoZf2\Model\Sacado;
 
-class BradescoController extends AbstractActionController
+class ItauController extends AbstractActionController
 {
 
     public function indexAction()
@@ -51,7 +51,7 @@ class BradescoController extends AbstractActionController
                 $sacado = new Sacado($data);
 
                 $bradesco = $this->getServiceLocator()
-                        ->get('Boleto\Bradesco');
+                        ->get('Boleto\Itau');
                 $bradesco->setSacado($sacado)
                         ->setBoleto($boleto);
 

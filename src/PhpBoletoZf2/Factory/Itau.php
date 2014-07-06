@@ -12,7 +12,7 @@
  * 59 Temple Place - Suite 330
  * Boston, MA 02111-1307, USA.
  * 
- * Originado do Projeto Projeto BoletoPhp: http://www.boletophp.com.br 
+ * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
  * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
  * 
@@ -20,24 +20,30 @@
 
 namespace PhpBoletoZf2\Factory;
 
+use Zend\Stdlib\Hydrator\ClassMethods;
 use Zend\Barcode\Barcode;
 use PhpBoletoZf2\Factory\AbstractBoletoFactory;
 use PhpBoletoZf2\Lib\Util;
 
+
 class Itau extends AbstractBoletoFactory
 {
-    
+
     protected $codigoBanco = '341';
 
     public function prepare()
     {
+        
+        /**
+         * adicionando dados das instruções e demonstrativo no boleto
+         */
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['demonstrativos'], $this->getBoleto());
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
 
         /**
          * Compondo o Nosso Número e seu dígito verificador
          */
-        $nossoNumeroProcessado = \str_pad($this->getBanco()->getCarteira(), 2, '0', STR_PAD_LEFT);
-        $nossoNumeroProcessado .= \str_pad($this->getBoleto()->getNossoNumero(), 11, '0', STR_PAD_LEFT);
-        $nossoNumeroDV = Util::digitoVerificadorNossoNumero($nossoNumeroProcessado);
+        $nossoNumeroProcessado = \str_pad($this->getBoleto()->getNossoNumero(), 8, '0', STR_PAD_LEFT);
 
         /**
          * Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)
@@ -54,18 +60,20 @@ class Itau extends AbstractBoletoFactory
         /**
          * Calcula o dígito verificador do código de barras
          */
-
         $DV = Util::digitoVerificadorBarra(
                         $this->getBanco()->getCodigoBanco()
                         . $this->getBanco()->getMoeda()
                         . $fatorVencimento
                         . $valorProcessado
-                        . $this->getCedente()->getAgencia()
+                        . $this->getBanco()->getCarteira()
                         . $nossoNumeroProcessado
+                        . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente() . $this->getBanco()->getCarteira() . $nossoNumeroProcessado)
+                        . $this->getCedente()->getAgencia()
                         . $this->getCedente()->getContaCedente()
-                        . '0'
+                        . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente())
+                        . '000'
         );
-        
+
         /**
          * Compondo a linha base para formação da Linha Digitável e do Código de Barras
          */
@@ -74,26 +82,27 @@ class Itau extends AbstractBoletoFactory
                 . $DV
                 . $fatorVencimento
                 . $valorProcessado
-                . $this->getCedente()->getAgencia()
+                . $this->getBanco()->getCarteira()
                 . $nossoNumeroProcessado
+                . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente() . $this->getBanco()->getCarteira() . $nossoNumeroProcessado)
+                . $this->getCedente()->getAgencia()
                 . $this->getCedente()->getContaCedente()
-                . '0';
-        
+                . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente())
+                . '000';
+
         /**
          * Formatando o Nosso Número para impressão
          */
-        $nossoNumeroFormatado = substr($nossoNumeroProcessado, 0, 2) . '/' . substr($nossoNumeroProcessado, 2) . '-' . $nossoNumeroDV;
+        $nossoNumeroFormatado = $this->getBanco()->getCarteira() . '/' . $nossoNumeroProcessado . '-' . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente() . $this->getBanco()->getCarteira() . $nossoNumeroProcessado);
 
         /**
          * Formatando os dados bancários do cedente para impressão
          */
         $this->getCedente()->setAgenciaCodigo($this->getCedente()->getAgencia()
-                . '-'
-                . $this->getCedente()->getAgenciaDv()
                 . ' / '
                 . $this->getCedente()->getContaCedente()
                 . '-'
-                . $this->getCedente()->getContaCedenteDv()
+                . Util::modulo10($this->getCedente()->getAgencia() . $this->getCedente()->getContaCedente())
         );
 
         /**
