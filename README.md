@@ -14,22 +14,22 @@ Instalação
   1. `cd diretorio/do/meu/projeto`
   2. Crie um arquivo `composer.json` com o seguinte conteúdo:
 
-     `json
+     ```json
      {
          "minimum-stability": "dev",
          "require": {
              "jotjunior/boletophp-zf2": "dev-master"
          }
      }
-     `
+     ```
   3. Instale o PHP Composer via `curl -s http://getcomposer.org/installer | php` (No windows, acesse
      http://getcomposer.org/installer e o execute com o PHP)
   4. execute `php composer.phar install`
   5. abra `diretorio/do/meu/projeto/config/application.config.php` e adicione a seguinte chave no índice `modules`: 
 
-     `php
-     'PhpBoletoZf2',
-     `
+     ```php
+     'BoletophpZF2',
+     ```
   6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
 
 Rotas
@@ -48,4 +48,4 @@ Demo
 
 Créditos
 --------
-Este projeto é inspirado no [BoletoPHP](http://www.boletophp.com.br). 
+Este projeto é inspirado no [BoletoPHP](http://www.boletophp.com.br) 
