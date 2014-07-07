@@ -30,7 +30,7 @@ Instalação
      ```php
      'PhpBoletoZf2',
      ```
-  6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/boleto.global.php.default` para o diretório `diretorio/do/meu/projeto/config/autoload` e remova a extensão .default
+  6. Copie o arquivo `diretorio/do/meu/projeto/vendor/jotjunior/boletophp-zf2/dist/php-boleto-zf2.global.php` para o diretório `diretorio/do/meu/projeto/config/autoload` e configure seus dados.
 
 Rotas
 -----
@@ -40,7 +40,39 @@ As rotas de acesso ao módulo são:
 	
 	`exemplo.com/boleto[:/controller]/demo` para acesso ao formulário de exemplo;
 	 
-	OBS: são dois formatos válidos para o boleto: `html` ou `pdf`
+	OBS: são dois formatos válidos para o boleto: `html` ou `pdf`, sendo o HTML opcionsl
+
+Chamando o boleto dentro do seu controller
+------------------------------------------
+Para escrever os dados do cedente, sacado ou boleto dentro do seu próprio controlador, basta fazer o seguinte:
+
+	```php
+        // recebendo os dados do boleto, seja por REQUEST ou Banco de Dados
+        $data = array( /** dados para emissão do boleto **/ ); 
+
+        // Instanciando as classes relacionadas ao boleto
+        $boleto = new BoletoBradesco($data);
+        $sacado = new Sacado($data);
+        $cedente = new Cedente($data);
+
+        // chamando o serviço para criação do boleto
+        $itau = $this->getServiceLocator()
+                    ->get('Boleto\Itau')
+                    ->setSacado($sacado)
+                    ->setCedente($cedente)
+                    ->setBoleto($boleto);
+        $dados = $itau->prepare();
+
+        // montando a view
+        $view = new ViewModel(array("dados" => $dados));
+        $view->setTerminal(true); // elimina o layout
+        $view->setTemplate("/php-boleto-zf2/itau/index");
+        
+        return $view;
+        
+
+
+
 
 Demo
 ----

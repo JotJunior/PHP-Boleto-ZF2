@@ -49,12 +49,12 @@ class CaixaSigcbController extends AbstractActionController
                 $boleto = new BoletoCaixa($data);
                 $sacado = new Sacado($data);
 
-                $bradesco = $this->getServiceLocator()
+                $caixa = $this->getServiceLocator()
                         ->get('Boleto\CaixaSigcb');
-                $bradesco->setSacado($sacado)
+                $caixa->setSacado($sacado)
                         ->setBoleto($boleto);
 
-                $dados = $bradesco->prepare();
+                $dados = $caixa->prepare();
             }
         }
 

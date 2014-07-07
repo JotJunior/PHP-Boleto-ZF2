@@ -24,7 +24,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DOMPDFModule\View\Model\PdfModel;
 use PhpBoletoZf2\Model\BoletoBradesco;
-use PhpBoletoZf2\Model\Banco;
 use PhpBoletoZf2\Model\Sacado;
 
 class ItauController extends AbstractActionController
@@ -50,12 +49,12 @@ class ItauController extends AbstractActionController
                 $boleto = new BoletoBradesco($data);
                 $sacado = new Sacado($data);
 
-                $bradesco = $this->getServiceLocator()
+                $itau = $this->getServiceLocator()
                         ->get('Boleto\Itau');
-                $bradesco->setSacado($sacado)
+                $itau->setSacado($sacado)
                         ->setBoleto($boleto);
 
-                $dados = $bradesco->prepare();
+                $dados = $itau->prepare();
             }
         }
 
@@ -63,16 +62,14 @@ class ItauController extends AbstractActionController
             case 'html' :
             default :
                 return new ViewModel(array('dados' => $dados));
-                break;
+
             case 'pdf' :
                 $pdf = new PdfModel();
                 $pdf->setOption('filename', 'boleto-bradesco');
                 $pdf->setOption('enable_remote', true);
                 $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
-                $pdf->setVariables(array('boleto' => $boleto));
+                $pdf->setVariables(array('dados' => $dados));
                 return $pdf;
-
-                break;
         }
     }
 
