@@ -69,10 +69,7 @@ Para escrever os dados do cedente, sacado ou boleto dentro do seu próprio contr
         $view->setTemplate("/php-boleto-zf2/itau/index");
         
         return $view;
-        
-
-
-
+        ```
 
 Demo
 ----
