@@ -33,7 +33,7 @@
                             <li>Corte na linha indicada. Não rasure, risque, fure ou dobre a região onde se encontra o código de barras.<br />
                             <li>Caso não apareça o código de barras no final, pressione a tecla F5 para atualizar esta tela.<li>Caso tenha problemas ao imprimir, copie a sequência numérica abaixo e pague no caixa eletrônico ou no internet banking:<br />
                                 <br />
-                                <span class="ld2">&nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?>
+                                <span class="ld2">&nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
                                     <br />&nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo number_format($this->dados->getBoleto()->getValor() / 100, 2, ",", "") ?>
                                     <br />
                                 </span>
@@ -106,7 +106,7 @@
                 <td class=ld align=right width=453 valign=bottom>
                     <span class=ld>
                         <span class="campotitulo">
-                            <?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?>
+                            <img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
                         </span>
                     </span>
                 </td>
@@ -512,7 +512,7 @@
                 <td class=ld align=right width=453 valign=bottom>
                     <span class=ld>
                         <span class="campotitulo">
-                            <?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?>
+                            <img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
                         </span>
                     </span>
                 </td>

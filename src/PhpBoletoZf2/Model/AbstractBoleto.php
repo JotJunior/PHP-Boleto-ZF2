@@ -21,6 +21,7 @@
 namespace PhpBoletoZf2\Model;
 
 use Zend\Stdlib\Hydrator\ClassMethods;
+use PhpBoletoZf2\Lib\LinhaDigitavel\ImageText;
 
 abstract class AbstractBoleto implements BoletoInterface
 {
@@ -251,8 +252,23 @@ abstract class AbstractBoleto implements BoletoInterface
         return $this->codigoDeBarras;
     }
 
-    public function getLinhaDigitavel()
+    public function getLinhaDigitavel($format = 'string')
     {
+        switch ($format) {
+            case 'string' :
+            default :
+                return $this->linhaDigitavel;
+
+            case 'base64' :
+                $base64 = new ImageText([
+                    'width' => 450,
+                    'height' => 30,
+                    'text' => $this->linhaDigitavel
+                ]);
+
+                return $base64;
+        }
+
         return $this->linhaDigitavel;
     }
 

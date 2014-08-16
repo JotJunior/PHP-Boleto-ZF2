@@ -25,7 +25,7 @@
                             Caso não apareça o Código de barras no final, clique em F5 para atualizar esta tela.
                             Caso tenha problemas ao imprimir, copie a sequencia numérica abaixo e pague no caixa eletrônico ou no internet banking:<br>
                             <br>
-                            <span class="ld2">&nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?><br>
+                            <span class="ld2">&nbsp;&nbsp;&nbsp;&nbsp;Linha Digitável: &nbsp;<img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" /><br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;Valor: &nbsp;&nbsp;R$ <?php echo number_format($this->dados->getBoleto()->getValor() / 100, 2, ',', '.') ?>
                                 <br>
                             </span>
@@ -91,7 +91,7 @@
                 <td class=ld align=right width=453 valign=bottom>
                     <span class=ld> 
                         <span class="campotitulo">
-                            <?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?>
+                            <img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
                         </span>
                     </span>
                 </td>
@@ -494,7 +494,7 @@
                 <td class=ld align=right width=453 valign=bottom>
                     <span class=ld> 
                         <span class="campotitulo">
-                            <?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?>
+                            <img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
                         </span>
                     </span>
                 </td>

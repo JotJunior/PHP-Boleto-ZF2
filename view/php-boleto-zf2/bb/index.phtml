@@ -413,7 +413,7 @@
                             <td width=50>
                                 <div class="field_cod_banco"><?php echo $this->dados->getBanco()->getCodigoBanco(), '-', $this->dados->getBanco()->getCodigoBancoDv() ?></div>
                             </td>
-                            <td class="linha_digitavel"><?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?></td>
+                            <td class="linha_digitavel"><img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -494,7 +494,7 @@
                             <td width=50>
                                 <div class="field_cod_banco"><?php echo $this->dados->getBanco()->getCodigoBanco(), '-', $this->dados->getBanco()->getCodigoBancoDv() ?></div>
                             </td>
-                            <td class="linha_digitavel"><?php echo $this->dados->getBoleto()->getLinhaDigitavel() ?></td>
+                            <td class="linha_digitavel"><img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
