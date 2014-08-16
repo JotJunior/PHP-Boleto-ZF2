@@ -36,41 +36,41 @@ Rotas
 -----
 As rotas de acesso ao módulo são:
 
-	`exemplo.com/boleto[/:controller[/:format]]` para acesso ao boleto;
-	
-	`exemplo.com/boleto[:/controller]/demo` para acesso ao formulário de exemplo;
-	 
-	OBS: são dois formatos válidos para o boleto: `html` ou `pdf`, sendo o HTML opcionsl
+`exemplo.com/boleto[/:controller[/:format]]` para acesso ao boleto;
+
+`exemplo.com/boleto[:/controller]/demo` para acesso ao formulário de exemplo;
+
+OBS: são dois formatos válidos para o boleto: `html` ou `pdf`, sendo o HTML opcionsl
+
 
 Chamando o boleto dentro do seu controller
-------------------------------------------
+--
 Para escrever os dados do cedente, sacado ou boleto dentro do seu próprio controlador, basta fazer o seguinte:
 
-    ```php
-    // recebendo os dados do boleto, seja por REQUEST ou Banco de Dados
-    $data = array( /** dados para emissão do boleto **/ ); 
+```php
+// recebendo os dados do boleto, seja por REQUEST ou Banco de Dados
+$data = array( /** dados para emissão do boleto **/ ); 
 
-    // Instanciando as classes relacionadas ao boleto
-    $boleto = new BoletoItau($data);
-    $sacado = new Sacado($data);
-    $cedente = new Cedente($data);
+// Instanciando as classes relacionadas ao boleto
+$boleto = new BoletoItau($data);
+$sacado = new Sacado($data);
+$cedente = new Cedente($data);
 
-    // chamando o serviço para criação do boleto
-    $itau = $this->getServiceLocator()
-                ->get('Boleto\Itau')
-                ->setSacado($sacado)
-                ->setCedente($cedente)
-                ->setBoleto($boleto);
-    $dados = $itau->prepare();
+// chamando o serviço para criação do boleto
+$itau = $this->getServiceLocator()
+        ->get('Boleto\Itau')
+        ->setSacado($sacado)
+        ->setCedente($cedente)
+        ->setBoleto($boleto);
+$dados = $itau->prepare();
 
-    // montando a view
-    $view = new ViewModel(array("dados" => $dados));
-    $view->setTerminal(true); // elimina o layout
-    $view->setTemplate("/php-boleto-zf2/itau/index");
+// montando a view
+$view = new ViewModel(array("dados" => $dados));
+$view->setTerminal(true); // elimina o layout
+$view->setTemplate("/php-boleto-zf2/itau/index");
 
-    return $view;
-    ```
-
+return $view;
+```
 Demo
 ----
 [Página de demonstração do projeto](http://phpboleto-zf2.jot.com.br/)
