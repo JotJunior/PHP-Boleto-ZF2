@@ -102,7 +102,7 @@ class ImageText
         $contents = ob_get_contents();
         ob_end_clean();
 
-        echo 'data:image/' . $this->format . ';base64,' . base64_encode($contents);
+        echo 'data:' . $this->format . ';base64,' . base64_encode($contents);
 
         imagedestroy($this->image);
     }
