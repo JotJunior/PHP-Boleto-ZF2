@@ -89,6 +89,7 @@ return array(
             'php-boleto-zf2/caixa-sigcb/index' => __DIR__ . '/../view/php-boleto-zf2/caixa-sigcb/index.phtml',
             'php-boleto-zf2/itau/demo' => __DIR__ . '/../view/php-boleto-zf2/itau/demo.phtml',
             'php-boleto-zf2/itau/index' => __DIR__ . '/../view/php-boleto-zf2/itau/index.phtml',
+            'php-boleto-zf2/sandanter/index' => __DIR__ . '/../view/php-boleto-zf2/santander/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',

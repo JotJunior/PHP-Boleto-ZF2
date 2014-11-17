@@ -139,6 +139,14 @@ class Cedente implements CedenteInterface
      */
     protected $agenciaCodigo;
 
+    protected $carteiraDescricao;
+
+    protected $codigocliente;
+
+    protected $pontodevenda;
+
+
+
     public function __construct($data = null)
     {
         (new ClassMethods())->hydrate($data, $this);
@@ -352,5 +360,51 @@ class Cedente implements CedenteInterface
         $this->agenciaCodigo = $agenciaCodigo;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCarteiraDescricao()
+    {
+        return $this->carteiraDescricao;
+    }/**
+     * @param mixed $carteiraDescricao
+     */
+    public function setCarteiraDescricao($carteiraDescricao)
+    {
+        $this->carteiraDescricao = $carteiraDescricao;
+        return $this;
+    }/**
+     * @return mixed
+     */
+    public function getCodigocliente()
+    {
+        return $this->codigocliente;
+    }/**
+     * @param mixed $codigocliente
+     */
+    public function setCodigocliente($codigocliente)
+    {
+        $this->codigocliente = $codigocliente;
+        return $this;
+    }/**
+     * @return mixed
+     */
+    public function getPontodevenda()
+    {
+        return $this->pontodevenda;
+    }/**
+     * @param mixed $pontodevenda
+     */
+    public function setPontodevenda($pontodevenda)
+    {
+        $this->pontodevenda = $pontodevenda;
+        return $this;
+    }
+
+
+
+
+
 
 }
