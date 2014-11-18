@@ -199,6 +199,13 @@ class Banco implements BancoInterface
      */
     protected $especieDoc;
 
+    protected $codigocliente;
+
+
+    protected $carteiraDescricao;
+
+    protected $pontodevenda;
+
     public function __construct($options = null)
     {
         $hydrator = new ClassMethods();
@@ -207,6 +214,7 @@ class Banco implements BancoInterface
         } else if (is_array($options)) {
             $hydrator->hydrate($options, $this);
         }
+
     }
 
     public function listaBancosDisponiveis()
@@ -313,5 +321,55 @@ class Banco implements BancoInterface
     {
         return $this->codigoBancoDv;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigocliente()
+    {
+        return $this->codigocliente;
+    }
+
+    /**
+     * @param mixed $codigocliente
+     */
+    public function setCodigocliente($codigocliente)
+    {
+        $this->codigocliente = $codigocliente;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCarteiraDescricao()
+    {
+        return $this->carteiraDescricao;
+    }
+
+    /**
+     * @param mixed $carteiraDescricao
+     */
+    public function setCarteiraDescricao($carteiraDescricao)
+    {
+        $this->carteiraDescricao = $carteiraDescricao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPontodevenda()
+    {
+        return $this->pontodevenda;
+    }
+
+    /**
+     * @param mixed $pontodevenda
+     */
+    public function setPontodevenda($pontodevenda)
+    {
+        $this->pontodevenda = $pontodevenda;
+    }
+
+
 
 }

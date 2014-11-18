@@ -154,6 +154,7 @@ abstract class AbstractBoleto implements BoletoInterface
      */
     public function __construct($data = null)
     {
+
         (new ClassMethods())->hydrate($data, $this);
     }
 
