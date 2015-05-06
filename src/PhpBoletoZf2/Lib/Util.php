@@ -31,9 +31,9 @@ abstract class Util
      * @param string $numero
      * @return int
      */
-    public static function digitoVerificadorNossoNumero($numero)
+    public static function digitoVerificadorNossoNumero($numero, $base =9)
     {
-        $resto2 = self::modulo11($numero, 9, 1);
+        $resto2 = self::modulo11($numero, $base, 1);
         $digito = 11 - $resto2;
         if ($digito == 10) {
             $dv = "P";

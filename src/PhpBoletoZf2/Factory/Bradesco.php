@@ -43,7 +43,7 @@ class Bradesco extends AbstractBoletoFactory
          */
         $nossoNumeroProcessado = \str_pad($this->getBanco()->getCarteira(), 2, '0', STR_PAD_LEFT);
         $nossoNumeroProcessado .= \str_pad($this->getBoleto()->getNossoNumero(), 11, '0', STR_PAD_LEFT);
-        $nossoNumeroDV = Util::digitoVerificadorNossoNumero($nossoNumeroProcessado);
+        $nossoNumeroDV = Util::digitoVerificadorNossoNumero($nossoNumeroProcessado, 7);
 
         /**
          * Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)
