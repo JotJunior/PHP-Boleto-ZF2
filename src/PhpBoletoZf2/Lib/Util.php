@@ -197,6 +197,12 @@ abstract class Util
         } elseif ($r == 1) {
             $resto = $soma % 11;
             return $resto;
+        } elseif ($r == 2) {
+        	$resto = $soma % 11;
+        	$res = 11-$resto;
+        	if (in_array($res,array(0,10,11)))
+        		$res = 1;
+        	return $res;
         }
     }
 
