@@ -36,7 +36,7 @@
                 #instr_header {
                     background: url('<?php echo $this->dados->getCedente()->getLogoCedente() ?>') no-repeat top left;
                     padding-left: 160px;
-                    height: 65px;
+                    height: 80px;
                 }
                 #instr_header h1 {
                     font-size: 16px;
@@ -320,14 +320,14 @@
                     width: 659px;
                 }
                 table.line td.sacador_avalista {
-                    width: 659px;
+                    width: 472px;
                 }
                 table.line tr.campos td.sacador_avalista {
                     width: 472px;
                 }
                 table.line td.cod_baixa {
-                    color: navy;
-                    width: 180px;
+                    color: navy !important;
+                    width: 134px;
                 }
                 div.footer {
                     margin-bottom: 30px;
@@ -371,6 +371,7 @@
                     
                 </address>
             </div><!-- id="instr_header" -->
+            <?php if ($this->dados->getBoleto()->getMostraInstrucoes()) : ?>
             <div id="">
                 <!--
                  Use no lugar do <div id=""> caso queira imprimir sem o logotipo e instru��es
@@ -401,27 +402,38 @@
                     </ol>
                 </div><!-- id="instr_content" -->
             </div><!-- id="instructions" -->
+            <?php endif;?>
             <div id="boleto">
                 <div class="cut">
                     <p>Corte na linha pontilhada</p>
                 </div>
-                <table cellspacing=0 cellpadding=0 width=666 border=0><TBODY><TR><TD class=ct width=666><div align=right><b class=cp>Recibo do Sacado</b></div></TD></tr></tbody></table>
-                <table class="header" border=0 cellspacing="0" cellpadding="0">
+                <table cellspacing=0 cellpadding=0 border=0 width="666px">
+                	<tbody>
+                		<tr>
+                			<td class="ct">
+                				<div align=right>
+                					<b class="cp">Recibo do Pagador</b>
+                				</div>
+                			</td>
+                		</tr>
+                	</tbody>
+                </table>
+                <table class="header" border=0 cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr>
-                            <td width=150><img src="<?php echo $this->dados->getBanco()->getLogoBanco() ?>" /></td>
-                            <td width=50>
+                            <td width="150px"><img src="<?php echo $this->dados->getBanco()->getLogoBanco() ?>" /></td>
+                            <td width="50px">
                                 <div class="field_cod_banco"><?php echo $this->dados->getBanco()->getCodigoBanco(), '-', $this->dados->getBanco()->getCodigoBancoDv() ?></div>
                             </td>
                             <td class="linha_digitavel"><img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
-                            <td class="cedente">Cedente</TD>
-                            <td class="ag_cod_cedente">Ag&ecirc;ncia / C&oacute;digo do Cedente</td>
+                            <td class="cedente">Beneficiário</TD>
+                            <td class="ag_cod_cedente">Ag&ecirc;ncia / C&oacute;digo do beneficiário</td>
                             <td class="especie">Esp&eacute;cie</TD>
                             <td class="qtd">Quantidade</TD>
                             <td class="nosso_numero">Nosso n&uacute;mero</td>
@@ -435,7 +447,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellPadding="0">
+                <table class="line" cellspacing="0" cellPadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
                             <td class="num_doc">N&uacute;mero do documento</td>
@@ -453,7 +465,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellPadding="0">
+                
+                <table class="line" cellspacing="0" cellPadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
                             <td class="desconto">(-) Desconto / Abatimento</td>
@@ -471,10 +484,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
-                            <td class="sacado">Sacado</td>
+                            <td class="sacado">Pagador</td>
                         </tr>
                         <tr class="campos">
                             <td class="sacado"><?php echo $this->dados->getSacado()->getNome() ?></td>
@@ -487,18 +500,18 @@
                 <div class="cut">
                     <p>Corte na linha pontilhada</p>
                 </div>
-                <table class="header" border=0 cellspacing="0" cellpadding="0">
+                <table class="header" border=0 cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr>
-                            <td width=150><img src="<?php echo $this->dados->getBanco()->getLogoBanco() ?>" /></td>
-                            <td width=50>
+                            <td width="150px"><img src="<?php echo $this->dados->getBanco()->getLogoBanco() ?>" /></td>
+                            <td width="50px">
                                 <div class="field_cod_banco"><?php echo $this->dados->getBanco()->getCodigoBanco(), '-', $this->dados->getBanco()->getCodigoBancoDv() ?></div>
                             </td>
                             <td class="linha_digitavel"><img src="<?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" /></td>
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
                             <td class="local_pagto">Local de pagamento</td>
@@ -510,11 +523,11 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
-                            <td class="cedente2">Cedente</td>
-                            <td class="ag_cod_cedente2">Ag&ecirc;ncia/C&oacute;digo cedente</td>
+                            <td class="cedente2">Beneficiário</td>
+                            <td class="ag_cod_cedente2">Ag&ecirc;ncia/C&oacute;digo beneficiário</td>
                         </tr>
                         <tr class="campos">
                             <td class="cedente2"><?php echo $this->dados->getCedente()->getNomeCedente() ?></td>
@@ -522,7 +535,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
                             <td class="data_doc">Data do documento</td>
@@ -542,7 +555,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellPadding="0">
+                <table class="line" cellspacing="0" cellPadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
                             <td class="reservado">Uso do banco</td>
@@ -562,14 +575,14 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr><td class="last_line" rowspan="6">
                                 <table class="line" cellspacing="0" cellpadding="0">
                                     <tbody>
                                         <tr class="titulos">
                                             <td class="instrucoes">
-                                                Instru&ccedil;&otilde;es (Texto de responsabilidade do cedente)
+                                                Instru&ccedil;&otilde;es (Texto de responsabilidade do beneficiário)
                                             </td>
                                         </tr>
                                         <tr class="campos">
@@ -648,10 +661,10 @@
                             </td></tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellPadding="0">
+                <table class="line" cellspacing="0" cellPadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
-                            <td class="sacado2">Sacado</td>
+                            <td class="sacado2">Pagador</td>
                         </tr>
                         <tr class="campos">
                             <td class="sacado2">
@@ -676,22 +689,23 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="line" cellspacing="0" cellpadding="0">
+                
+                <table class="line" cellspacing="0" cellpadding="0" width="666px">
                     <tbody>
                         <tr class="titulos">
-                            <td class="sacador_avalista" colspan="2">Sacador/Avalista</td>
+                            <td class="sacador_avalista">Pagador/Avalista</td>                            
                         </tr>
                         <tr class="campos">
-                            <td class="sacador_avalista">&nbsp;</td>
+                        	<td class="sacador_avalista">&nbsp;</td>
                             <td class="cod_baixa">C&oacute;d. baixa</td>
                         </tr>
                     </tbody>
                 </table>
-                <table cellspacing=0 cellpadding=0 width=666 border=0>
+                <table cellspacing=0 cellpadding=0 width="666px" border=0>
                     <tbody>
                         <tr>
-                            <td width="425"><img src="<?php echo $this->dados->getBoleto()->getCodigoDeBarras()->render() ?>" /></td>
-                            <td width=241 align=right valign="top" ><font style="font-size: 10px;">Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de Compensação</font></td>
+                            <td width="425px"><img src="<?php echo $this->dados->getBoleto()->getCodigoDeBarras()->render() ?>" /></td>
+                            <td width="241px" align=right valign="top" ><font style="font-size: 10px;">Autentica&ccedil;&atilde;o mec&acirc;nica - Ficha de Compensação</font></td>
                         </tr>
                     </tbody></table>
                 <div class="cut">
