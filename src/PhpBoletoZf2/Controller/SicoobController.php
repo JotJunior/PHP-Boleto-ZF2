@@ -14,8 +14,9 @@
  * 
  * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
- * Adaptação ao Zend Framework 2: Matheus Ferreira S. <santana.matheusferreira@gmail.com>
- * 
+ * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
+ *  
+ * Matheus Ferreira S. <santana.matheusferreira@gmail.com>
  */
 
 namespace PhpBoletoZf2\Controller;
@@ -45,16 +46,32 @@ class SicoobController extends AbstractActionController
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                $boleto = new BoletoCaixa($data);
+                $boleto = new BoletoSicoob($data);
                 $sacado = new Sacado($data);
 
-                $caixa = $this->getServiceLocator()
-                        ->get('Boleto\CaixaSigcb');
-                $caixa->setSacado($sacado)
+                $sicoob = $this->getServiceLocator()
+                        ->get('Boleto\Sicoob');
+                $sicoob->setSacado($sacado)
                         ->setBoleto($boleto);
 
-                $dados = $caixa->prepare();
+                $dados = $sicoob->prepare();
             }
+        }
+        
+        switch ($this->params()->fromRoute('format')) {
+            case 'html' :
+            default :
+                return new ViewModel(array('dados' => $dados));
+                break;
+            case 'pdf' :
+                $pdf = new PdfModel();
+                $pdf->setOption('filename', 'boleto-bradesco');
+                $pdf->setOption('enable_remote', true);
+                $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
+                $pdf->setVariables(array('boleto' => $boleto));
+                return $pdf;
+
+                break;
         }
     }
 }
