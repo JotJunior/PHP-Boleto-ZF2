@@ -32,12 +32,13 @@ class Module
     {
         return array(
             'factories' => array(
-                'Boleto\Bradesco' => 'PhpBoletoZf2\Factory\Bradesco',
-                'Boleto\BB' => 'PhpBoletoZf2\Factory\BB',
-                'Boleto\Caixa' => 'PhpBoletoZf2\Factory\Caixa',
+                'Boleto\Bradesco'   => 'PhpBoletoZf2\Factory\Bradesco',
+                'Boleto\BB'         => 'PhpBoletoZf2\Factory\BB',
+                'Boleto\Caixa'      => 'PhpBoletoZf2\Factory\Caixa',
                 'Boleto\CaixaSigcb' => 'PhpBoletoZf2\Factory\CaixaSigcb',
-                'Boleto\Itau' => 'PhpBoletoZf2\Factory\Itau',
-                'Boleto\santander' => 'PhpBoletoZf2\Factory\Santander',
+                'Boleto\Itau'       => 'PhpBoletoZf2\Factory\Itau',
+                'Boleto\santander'  => 'PhpBoletoZf2\Factory\Santander',
+                'Boleto\Bancoob'     => 'PhpBoletoZf2\Factory\Bancoob',
             )
         );
     }

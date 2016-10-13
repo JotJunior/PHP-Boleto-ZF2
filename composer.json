@@ -9,7 +9,11 @@
         {
             "name": "João G. Zanon Jr.",
             "email": "jot@jot.com.br"
-        }
+        },
+	{
+            "name": "Matheus Ferreira Silva",
+            "email": "santana.matheusferreira@gmail.com"
+	}
     ],
     "minimum-stability": "dev",
     "require": {

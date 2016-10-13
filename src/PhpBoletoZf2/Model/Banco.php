@@ -27,16 +27,16 @@ class Banco implements BancoInterface
 {
 
     const CODIGO_BANCO_DO_BRASIL = '001';
-    const CODIGO_BANCOOB = '756';
-    const CODIGO_BANESTES = '021';
-    const CODIGO_BRADESCO = '237';
-    const CODIGO_CAIXA = '104';
-    const CODIGO_ITAU = '341';
-    const CODIGO_HSBC = '399';
-    const CODIGO_NOSSA_CAIXA = '151';
-    const CODIGO_SANTANDER = '033';
-    const CODIGO_SICREDI = '748';
-    const CODIGO_SUDAMERIS = '215';
+    const CODIGO_BANCOOB         = '756';
+    const CODIGO_BANESTES        = '021';
+    const CODIGO_BRADESCO        = '237';
+    const CODIGO_CAIXA           = '104';
+    const CODIGO_ITAU            = '341';
+    const CODIGO_HSBC            = '399';
+    const CODIGO_NOSSA_CAIXA     = '151';
+    const CODIGO_SANTANDER       = '033';
+    const CODIGO_SICREDI         = '748';
+    const CODIGO_SUDAMERIS       = '215';
 
     protected $bancos = [
         self::CODIGO_BANCO_DO_BRASIL => [
