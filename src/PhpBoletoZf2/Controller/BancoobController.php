@@ -24,10 +24,10 @@ namespace PhpBoletoZf2\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use DOMPDFModule\View\Model\PdfModel;
-use PhpBoletoZf2\Model\BoletoSicoob;
+use PhpBoletoZf2\Model\BoletoBancoob;
 use PhpBoletoZf2\Model\Sacado;
 
-class SicoobController extends AbstractActionController
+class BancoobController extends AbstractActionController
 {
     public function indexAction()
     {
@@ -46,15 +46,15 @@ class SicoobController extends AbstractActionController
             if ($form->isValid()) {
                 $data = $form->getData();
 
-                $boleto = new BoletoSicoob($data);
+                $boleto = new BoletoBancoob($data);
                 $sacado = new Sacado($data);
 
-                $sicoob = $this->getServiceLocator()
-                        ->get('Boleto\Sicoob');
-                $sicoob->setSacado($sacado)
+                $bancoob = $this->getServiceLocator()
+                        ->get('Boleto\Bancoob');
+                $bancoob->setSacado($sacado)
                         ->setBoleto($boleto);
 
-                $dados = $sicoob->prepare();
+                $dados = $bancoob->prepare();
             }
         }
         
@@ -67,7 +67,7 @@ class SicoobController extends AbstractActionController
                 $pdf = new PdfModel();
                 $pdf->setOption('filename', 'boleto-bradesco');
                 $pdf->setOption('enable_remote', true);
-                $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
+                $pdf->setOption('paperBanze', 'a4'); // Defaults to "8x11" 
                 $pdf->setVariables(array('boleto' => $boleto));
                 return $pdf;
 

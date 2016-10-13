@@ -26,16 +26,21 @@
  use PhpBoletoZf2\Factory\AbstractBoletoFactory;
  use PhpBoletoZf2\Lib\Util;
 
- class Sicoob extends AbstractBoletoFactory
+ class Bancoob extends AbstractBoletoFactory
  {
      protected $codigoBanco = '756';
 
-     public function prepare()
+     public function prepare() 
      {
        /**
         * adicionando dados das instruções e demonstrativo no boleto
         */
         (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
+        
+        /**
+         * adicionando valores default de configuração do cedente
+         */
+        (new ClassMethods())->hydrate($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente'], $this->getCedente());
 
         /**
          * Compondo o Nosso Número e seu dígito verificador
@@ -52,7 +57,7 @@
         /**
          * Processando o valor para aplicação na linha digitável e no código de barras
          */
-        $valor = preg_replace("/[^0-9]/", "", $this->getBoleto()->getValor()); // removendo formatação do número
+        $valor           = preg_replace("/[^0-9]/", "", $this->getBoleto()->getValor()); // removendo formatação do número
         $valorProcessado = \str_pad($valor, 10, '0', STR_PAD_LEFT);
 
         /**

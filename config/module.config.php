@@ -71,7 +71,7 @@ return array(
             'PhpBoletoZf2\Controller\Caixa'      => 'PhpBoletoZf2\Controller\CaixaController',
             'PhpBoletoZf2\Controller\CaixaSigcb' => 'PhpBoletoZf2\Controller\CaixaSigcbController',
             'PhpBoletoZf2\Controller\Itau'       => 'PhpBoletoZf2\Controller\ItauController',
-            'PhpBoletoZf2\Controller\Sicoob'     => 'PhpBoletoZf2\Controller\SicoobController',
+            'PhpBoletoZf2\Controller\Bancoob'     => 'PhpBoletoZf2\Controller\BancoobController',
         ),
     ),
     'view_manager' => array(
@@ -91,7 +91,7 @@ return array(
             'php-boleto-zf2/itau/demo'         => __DIR__ . '/../view/php-boleto-zf2/itau/demo.phtml',
             'php-boleto-zf2/itau/index'        => __DIR__ . '/../view/php-boleto-zf2/itau/index.phtml',
             'php-boleto-zf2/sandanter/index'   => __DIR__ . '/../view/php-boleto-zf2/santander/index.phtml',
-            'php-boleto-zf2/sicoob/index'      => __DIR__ . '/../view/php-boleto-zf2/sicoob/index.phtml',
+            'php-boleto-zf2/bancoob/index'      => __DIR__ . '/../view/php-boleto-zf2/bancoob/index.phtml',
         ),
         'template_path_stack'      => array(
             __DIR__ . '/../view',

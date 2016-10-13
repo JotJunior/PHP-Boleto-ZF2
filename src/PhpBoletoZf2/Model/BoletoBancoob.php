@@ -14,13 +14,13 @@
  * 
  * Originado do Projeto BoletoPhp: http://www.boletophp.com.br 
  * 
- * Adaptação ao Zend Framework 2: João G. Zanon Jr. <jot@jot.com.br>
+ * Adaptação ao Zend Framework 2: Matheus Ferreira S. <santana.matheusferreira@gmail.com>
  * 
  */
 
  namespace PhpBoletoZf2\Model;
 
- class BoletoSicoob extends AbstractBoleto 
+ class BoletoBancoob extends AbstractBoleto 
  {
 
  }

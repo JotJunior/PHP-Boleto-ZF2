@@ -38,7 +38,7 @@ class Module
                 'Boleto\CaixaSigcb' => 'PhpBoletoZf2\Factory\CaixaSigcb',
                 'Boleto\Itau'       => 'PhpBoletoZf2\Factory\Itau',
                 'Boleto\santander'  => 'PhpBoletoZf2\Factory\Santander',
-                'Boleto\Sicoob'     => 'PhpBoletoZf2\Factory\Sicoob',
+                'Boleto\Bancoob'     => 'PhpBoletoZf2\Factory\Bancoob',
             )
         );
     }

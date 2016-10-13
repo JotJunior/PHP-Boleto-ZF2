@@ -402,11 +402,15 @@
                 <table class="header" border=0 cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td width=150><img src="<?= $this->dados->getCedente()->getLogoCedente() ?>"/></td>
+                            <td width=150>
+                                <IMG SRC="<?= $this->dados->getCedente()->getLogoCedente() ?>">
+                            </td>
                             <td width=50>
                                 <div class="field_cod_banco"><?php echo $this->dados->getBanco()->getCodigoBanco() . '-' . $this->dados->getBanco()->getCodigoBancoDv() ?></div>
                             </td>
-                            <td class="linha_digitavel"><?php echo $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?></td>
+                            <td class="linha_digitavel">
+                                <img src="<?= $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -504,7 +508,9 @@
                             <td width=50>
                                 <div class="field_cod_banco"><?=$this->dados->getBanco()->getCodigoBanco() . '-' . $this->dados->getBanco()->getCodigoBancoDv()?></div>
                             </td>
-                            <td class="linha_digitavel"><?=$this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>?></td>
+                            <td class="linha_digitavel">
+                                <img src="<?= $this->dados->getBoleto()->getLinhaDigitavel('base64')->render() ?>" />
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -690,7 +696,7 @@
                         </tr>
                         <tr class="campos">
                             <td class="sacado2">
-                                <p><?=$this->dados->getSacado()->getNome()?></p>
+                                <p><b><?=$this->dados->getSacado()->getNome()?></b> <?=$this->dados->getSacado()->getDocumento()?></p>
                                 <p><?=$this->dados->getSacado()->getEndereco1()?></p>
                                 <p><?=$this->dados->getSacado()->getEndereco2()?></p>
                             </td>
