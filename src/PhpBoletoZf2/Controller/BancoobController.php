@@ -67,7 +67,7 @@ class BancoobController extends AbstractActionController
                 $pdf = new PdfModel();
                 $pdf->setOption('filename', 'boleto-bradesco');
                 $pdf->setOption('enable_remote', true);
-                $pdf->setOption('paperBanze', 'a4'); // Defaults to "8x11" 
+                $pdf->setOption('paperSize', 'a4'); // Defaults to "8x11" 
                 $pdf->setVariables(array('boleto' => $boleto));
                 return $pdf;
 
