@@ -32,97 +32,94 @@
 
      public function prepare() 
      {
-       /**
-        * adicionando dados das instruções e demonstrativo no boleto
-        */
-        (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
+         // adicionando dados das instruções e demonstrativo no boleto
+         (new ClassMethods())->hydrate($this->config['php-zf2-boleto']['instrucoes'], $this->getBoleto());
         
-        /**
-         * adicionando valores default de configuração do cedente
-         */
-        (new ClassMethods())->hydrate($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente'], $this->getCedente());
+         // adicionando valores default de configuração do cedente
+         (new ClassMethods())->hydrate($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente'], $this->getCedente());
 
-        /**
-         * Compondo o Nosso Número e seu dígito verificador
-         */
-        $nossoNumeroProcessado  = \str_pad($this->getBanco()->getCarteira(), 2, '0', STR_PAD_LEFT);
-        $nossoNumeroProcessado .= \str_pad($this->getBoleto()->getNossoNumero(), 11, '0', STR_PAD_LEFT);
-        $nossoNumeroDV          = Util::digitoVerificadorNossoNumero($nossoNumeroProcessado, 7);
+        
+         $nossoNumeroProcessado = (int)$this->getBoleto()->getNossoNumero();
+         $nossoNumeroProcessado = \str_pad($nossoNumeroProcessado, 7, '0', STR_PAD_LEFT);
 
-        /**
-         * Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)
-         */
-        $fatorVencimento = Util::fatorVencimento($this->getBoleto()->getDataVencimento()->format("d/m/Y"));
+         // Formatando o Nosso Número para impressão
+         $nossoNumeroFormatado = '0'.$nossoNumeroProcessado;
 
-        /**
-         * Processando o valor para aplicação na linha digitável e no código de barras
-         */
-        $valor           = preg_replace("/[^0-9]/", "", $this->getBoleto()->getValor()); // removendo formatação do número
-        $valorProcessado = \str_pad($valor, 10, '0', STR_PAD_LEFT);
+         // Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)
+         $fatorVencimento = Util::fatorVencimento($this->getBoleto()->getDataVencimento()->format("d/m/Y"));
+         $fatorVencimento = \str_pad($fatorVencimento, 4, '0', STR_PAD_LEFT);
 
-        /**
-         * Calcula o dígito verificador do código de barras
-         */
+         // Processando o valor para aplicação na linha digitável e no código de barras
+         $valor           = preg_replace("/[^0-9]/", "", $this->getBoleto()->getValor()); // removendo formatação do número
+         $valorProcessado = \str_pad($valor, 10, '0', STR_PAD_LEFT);
 
-        $DV = Util::digitoVerificadorBarra(
-                        $this->getBanco()->getCodigoBanco()
-                        . $this->getBanco()->getMoeda()
-                        . $fatorVencimento
-                        . $valorProcessado
-                        . $this->getCedente()->getAgencia()
-                        . $nossoNumeroProcessado
-                        . $this->getCedente()->getContaCedente()
-                        . '0'
-        );
+         $parcela = $this->getBoleto()->getQuantidade();
+         $parcela = \str_pad(($parcela?$parcela: 1), 3, '0', STR_PAD_LEFT);
 
-        /**
-         * Compondo a linha base para formação da Linha Digitável e do Código de Barras
-         */
-        $strLinha = $this->getBanco()->getCodigoBanco()
+         $numeroCliente = ((int)$this->getCedente()->getContaCedente()) . $this->getCedente()->getContaCedenteDv();
+         $numeroCliente = \str_pad($numeroCliente, 7, '0', STR_PAD_LEFT);
+
+         $variacao = $this->getCedente()->getVariacaoCarteira();
+         $variacao = \str_pad($variacao?$variacao: 2, 2, '0', STR_PAD_LEFT);
+
+         // Calcula o dígito verificador do código de barras
+         $DV = Util::digitoVerificadorBarra(
+                $this->getBanco()->getCodigoBanco()
+                . $this->getBanco()->getMoeda()
+                . $fatorVencimento
+                . $valorProcessado
+                . $this->getBanco()->getCarteira()
+                . $this->getCedente()->getAgencia()
+                . $variacao 
+                . $numeroCliente 
+                . $nossoNumeroFormatado 
+                . $parcela
+         );
+
+         /** 
+          * Calcula digito verificador nosso número boletos Bancoob
+          * 3197 regra sicoob
+          */
+         $sequencia     = ($this->getCedente()->getAgencia() . \str_pad($numeroCliente, 10, '0', STR_PAD_LEFT) . $nossoNumeroProcessado);      
+         $dvNossoNumero = Util::digitoVerificadorNossoNumeroBancoob($sequencia, '3197');
+
+         /**
+          * Compondo a linha base para formação da Linha Digitável e do Código de Barras
+          */
+         $strLinha = $this->getBanco()->getCodigoBanco()
                 . $this->getBanco()->getMoeda()
                 . $DV
                 . $fatorVencimento
                 . $valorProcessado
+                . $this->getBanco()->getCarteira()
                 . $this->getCedente()->getAgencia()
-                . $nossoNumeroProcessado
-                . $this->getCedente()->getContaCedente()
-                . '0';
+                . $variacao 
+                . $numeroCliente 
+                . $nossoNumeroProcessado 
+                . $dvNossoNumero 
+                . $parcela
+                ;
 
-        /**
-         * Formatando o Nosso Número para impressão
-         */
-        $nossoNumeroFormatado = substr($nossoNumeroProcessado, 0, 2) . '/' . substr($nossoNumeroProcessado, 2) . '-' . $nossoNumeroDV;
-
-        /**
-         * Formatando os dados bancários do cedente para impressão
-         */
-        $this->getCedente()->setAgenciaCodigo($this->getCedente()->getAgencia()
-                . '-'
-                . $this->getCedente()->getAgenciaDv()
+         // Formatando os dados bancários do cedente para impressão
+         $this->getCedente()->setAgenciaCodigo($this->getCedente()->getAgencia()
                 . ' / '
                 . $this->getCedente()->getContaCedente()
                 . '-'
                 . $this->getCedente()->getContaCedenteDv()
-        );
+         );
 
-        /**
-         * Iniciando opções para criação do Código de Barras
-         */
-        $barcodeOptions = array('text' => $strLinha);
+         // Iniciando opções para criação do Código de Barras
+         $barcodeOptions = array('text' => $strLinha);
 
-        /**
-         * Criando o código de barras em uma imagem e retornando seu base64
-         */
-        $codigoDeBarras = Barcode::factory('Code25interleaved', 'PhpBoletoZf2\Lib\Barcode\Renderer\Base64', $barcodeOptions, array());
+         // Criando o código de barras em uma imagem e retornando seu base64
+         $codigoDeBarras = Barcode::factory('Code25interleaved', 'PhpBoletoZf2\Lib\Barcode\Renderer\Base64', $barcodeOptions, array());
 
-        /**
-         * Termina de hidratar o objetodo boleto
-         */
-        $this->getBoleto()
+         // Termina de hidratar o objetodo boleto
+         $this->getBoleto()
                 ->setCodigoDeBarras($codigoDeBarras)
                 ->setLinhaDigitavel(Util::montaLinhaDigitavel($strLinha))
                 ->setNossoNumeroFormatado($nossoNumeroFormatado);
 
-        return $this;
+         return $this;
      }
  }
