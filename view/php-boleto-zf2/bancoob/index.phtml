@@ -722,7 +722,9 @@
                 </div>
 
                 <div class="barcode">
-                    <p style="font-size:0px;"><?=$this->dados->getBoleto()->getCodigoDeBarras()->render()?></p>
+                    <p style="font-size:0px;">
+                    <img src="<?php echo $this->dados->getBoleto()->getCodigoDeBarras()->render() ?>" />
+                    </p>
                 </div>
 
                 <div class="cut">
