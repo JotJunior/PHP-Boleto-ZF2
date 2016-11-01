@@ -63,13 +63,14 @@
          $variacao = \str_pad($variacao?$variacao: 2, 2, '0', STR_PAD_LEFT);
 
          // Calcula o dígito verificador do código de barras
+         //TODO: URGENTE!!! : calcular digito verificador do campo 1, 2 e 3
          $DV = Util::digitoVerificadorBarra(
                 $this->getBanco()->getCodigoBanco()
                 . $this->getBanco()->getMoeda()
-                . $fatorVencimento
-                . $valorProcessado
                 . $this->getBanco()->getCarteira()
                 . $this->getCedente()->getAgencia()
+                . $fatorVencimento
+                . $valorProcessado
                 . $variacao 
                 . $numeroCliente 
                 . $nossoNumeroFormatado 

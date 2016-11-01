@@ -58,17 +58,17 @@ abstract class Util
      * 
      * @return int $dv valor digito verificador 
      */
-    public static function digitoVerificadorNossoNumeroBancoob($sequencia, $constante) 
+    public static function digitoVerificadorNossoNumeroBancoob($sequencia, $constanteStr) 
     {
         $cont      = 0;
         $calculoDv = '';
 
         for ($num = 0; $num<=strlen($sequencia); $num++) {
-            for ($posConst=0;$posConst<strlen($contante);$posConst++) {
+            for ($posConst=0;$posConst<strlen($constanteStr);$posConst++) {
                 if ($cont==$posConst) {
-                    $constante = $contante[$posConst];
+                    $constante = $constanteStr[$posConst];
 
-                    if ($cont==strlen($contante)-1) {
+                    if ($cont==strlen($constanteStr)-1) {
                         $cont=0;
                     } else {                
                         $cont++;
