@@ -29,7 +29,7 @@
  class Bancoob extends AbstractBoletoFactory
  {
      protected $codigoBanco = '756';
-
+     
      public function prepare() 
      {
          // adicionando dados das instruções e demonstrativo no boleto
@@ -37,13 +37,9 @@
         
          // adicionando valores default de configuração do cedente
          (new ClassMethods())->hydrate($this->config['php-zf2-boleto'][$this->banco->getCodigoBanco()]['dados_cedente'], $this->getCedente());
-
         
          $nossoNumeroProcessado = (int)$this->getBoleto()->getNossoNumero();
          $nossoNumeroProcessado = \str_pad($nossoNumeroProcessado, 7, '0', STR_PAD_LEFT);
-
-         // Formatando o Nosso Número para impressão
-         $nossoNumeroFormatado = '0'.$nossoNumeroProcessado;
 
          // Calcula o fator do vencimento (número inteiro que representa a data de vencimento na linha digitavel)
          $fatorVencimento = Util::fatorVencimento($this->getBoleto()->getDataVencimento()->format("d/m/Y"));
@@ -54,7 +50,7 @@
          $valorProcessado = \str_pad($valor, 10, '0', STR_PAD_LEFT);
 
          $parcela = $this->getBoleto()->getQuantidade();
-         $parcela = \str_pad(($parcela?$parcela: 1), 3, '0', STR_PAD_LEFT);
+         $parcela = \str_pad(($parcela ? $parcela: 1), 3, '0', STR_PAD_LEFT);
 
          $numeroCliente = (int)$this->getCedente()->getConvenio();
          $numeroCliente = \str_pad($numeroCliente, 7, '0', STR_PAD_LEFT);
@@ -67,11 +63,13 @@
          $sequencia     = ($this->getCedente()->getAgencia() . \str_pad($numeroCliente, 10, '0', STR_PAD_LEFT) . $nossoNumeroProcessado);      
          $dvNossoNumero = Util::digitoVerificadorNossoNumeroBancoob($sequencia, '3197');
 
+         $nossoNumeroFormatado = "$nossoNumeroProcessado$dvNossoNumero";
+
          // modalidade de cobranca
          $variacao = $this->getCedente()->getVariacaoCarteira();
          $variacao = \str_pad(($variacao?$variacao: 2), 2, '0', STR_PAD_LEFT);
 
-         $campoLivre = "$variacao$numeroCliente$nossoNumeroProcessado$dvNossoNumero$parcela";
+         $campoLivre = "$variacao$numeroCliente$nossoNumeroFormatado$parcela";
 
          // Calcula o dígito verificador do código de barras
          $DV = Util::digitoVerificadorBarra(
@@ -98,11 +96,9 @@
                 ;
 
          // Formatando os dados bancários do cedente para impressão
-         $this->getCedente()->setAgenciaCodigo($this->getCedente()->getAgencia()
+         $this->getCedente()->setAgenciaCodigo($this->getCedente()->getAgenciaDv()
                 . ' / '
-                . $this->getCedente()->getContaCedente()
-                . '-'
-                . $this->getCedente()->getContaCedenteDv()
+                . $this->getCedente()->getCodigocliente()
          );
 
          // Iniciando opções para criação do Código de Barras
