@@ -52,7 +52,7 @@ abstract class Util
      * @param string $sequencia:
      *          String de 21 dígitos contendo:
      *          - agencia cedente sem dígito verificador (4 dígitos)
-     *          - conta do cliente com digito verificador (10 dígitos)
+     *          - número do cliente(convenio) (10 dígitos)
      *          - nosso número (7 dígitos)
      * @param string $constante: constante pra validar
      * 

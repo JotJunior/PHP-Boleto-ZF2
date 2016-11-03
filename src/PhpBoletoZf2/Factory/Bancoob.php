@@ -56,26 +56,9 @@
          $parcela = $this->getBoleto()->getQuantidade();
          $parcela = \str_pad(($parcela?$parcela: 1), 3, '0', STR_PAD_LEFT);
 
-         $numeroCliente = ((int)$this->getCedente()->getContaCedente()) . $this->getCedente()->getContaCedenteDv();
+         $numeroCliente = (int)$this->getCedente()->getConvenio();
          $numeroCliente = \str_pad($numeroCliente, 7, '0', STR_PAD_LEFT);
 
-         $variacao = $this->getCedente()->getVariacaoCarteira();
-         $variacao = \str_pad($variacao?$variacao: 2, 2, '0', STR_PAD_LEFT);
-
-         // Calcula o dígito verificador do código de barras
-         //TODO: URGENTE!!! : calcular digito verificador do campo 1, 2 e 3
-         $DV = Util::digitoVerificadorBarra(
-                $this->getBanco()->getCodigoBanco()
-                . $this->getBanco()->getMoeda()
-                . $this->getBanco()->getCarteira()
-                . $this->getCedente()->getAgencia()
-                . $fatorVencimento
-                . $valorProcessado
-                . $variacao 
-                . $numeroCliente 
-                . $nossoNumeroFormatado 
-                . $parcela
-         );
 
          /** 
           * Calcula digito verificador nosso número boletos Bancoob
@@ -83,6 +66,23 @@
           */
          $sequencia     = ($this->getCedente()->getAgencia() . \str_pad($numeroCliente, 10, '0', STR_PAD_LEFT) . $nossoNumeroProcessado);      
          $dvNossoNumero = Util::digitoVerificadorNossoNumeroBancoob($sequencia, '3197');
+
+         // modalidade de cobranca
+         $variacao = $this->getCedente()->getVariacaoCarteira();
+         $variacao = \str_pad(($variacao?$variacao: 2), 2, '0', STR_PAD_LEFT);
+
+         $campoLivre = "$variacao$numeroCliente$nossoNumeroProcessado$dvNossoNumero$parcela";
+
+         // Calcula o dígito verificador do código de barras
+         $DV = Util::digitoVerificadorBarra(
+                $this->getBanco()->getCodigoBanco()
+                . $this->getBanco()->getMoeda()
+                . $fatorVencimento
+                . $valorProcessado
+                . $this->getBanco()->getCarteira()
+                . $this->getCedente()->getAgencia()
+                . $campoLivre
+         );
 
          /**
           * Compondo a linha base para formação da Linha Digitável e do Código de Barras
@@ -94,11 +94,7 @@
                 . $valorProcessado
                 . $this->getBanco()->getCarteira()
                 . $this->getCedente()->getAgencia()
-                . $variacao 
-                . $numeroCliente 
-                . $nossoNumeroProcessado 
-                . $dvNossoNumero 
-                . $parcela
+                . $campoLivre
                 ;
 
          // Formatando os dados bancários do cedente para impressão
