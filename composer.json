@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "dino/dompdf-module": "0.3.1"
+        "dino/dompdf-module": "dev-master"
     },
     "autoload": {
         "psr-0": {
