@@ -1,5 +1,5 @@
 {
-    "name": "mtferreira/php-boleto-zf2",
+    "name": "jotjunior/php-boleto-zf2",
     "type": "module",
     "description": "Adaptação do BoletoPHP para Zend Framework 2",
     "keywords": ["boleto", "php", "zf2"],
