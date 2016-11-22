@@ -46,6 +46,52 @@ abstract class Util
     }
 
     /**
+     * Calcula o dígito verificador do Nosso Número para boletos Bancoob
+     * com base em uma sequencia e uma constante
+     *
+     * @param string $sequencia:
+     *          String de 21 dígitos contendo:
+     *          - agencia cedente sem dígito verificador (4 dígitos)
+     *          - número do cliente(convenio) (10 dígitos)
+     *          - nosso número (7 dígitos)
+     * @param string $constante: constante pra validar
+     * 
+     * @return int $dv valor digito verificador 
+     */
+    public static function digitoVerificadorNossoNumeroBancoob($sequencia, $constanteStr) 
+    {
+        $cont      = 0;
+        $calculoDv = '';
+
+        for ($num = 0; $num<=strlen($sequencia); $num++) {
+            for ($posConst=0;$posConst<strlen($constanteStr);$posConst++) {
+                if ($cont==$posConst) {
+                    $constante = $constanteStr[$posConst];
+
+                    if ($cont==strlen($constanteStr)-1) {
+                        $cont=0;
+                    } else {                
+                        $cont++;
+                    }    
+                    
+                    break;
+                }
+            }
+
+            $calculoDv = $calculoDv + (substr($sequencia,$num,1) * $constante);
+        }
+
+        $resto = $calculoDv % 11;
+        $dv   = 11 - $resto;
+
+        if ($dv == 0) $dv = 0;
+        if ($dv == 1) $dv = 0;
+        if ($dv > 9) $dv = 0;
+
+        return $dv;
+    }
+
+    /**
      * Gera o dígito verificador do código de barras
      * @param int $numero
      * @return int

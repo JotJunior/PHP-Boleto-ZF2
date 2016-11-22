@@ -1,5 +1,5 @@
 {
-    "name": "jotjunior/php-boleto-zf2",
+    "name": "mtferreira/php-boleto-zf2",
     "type": "module",
     "description": "Adaptação do BoletoPHP para Zend Framework 2",
     "keywords": ["boleto", "php", "zf2"],
@@ -15,7 +15,6 @@
             "email": "santana.matheusferreira@gmail.com"
 	}
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
         "dino/dompdf-module": "dev-master"

@@ -555,7 +555,7 @@
                             <td class="data_doc"><?=$this->dados->getBoleto()->getDataDocumento()->format('d/m/Y')?></td>
                             <td class="num_doc2"><?=$this->dados->getBoleto()->getNumeroDocumento()?></td>
                             <td class="especie_doc"><?=$this->dados->getBanco()->getEspecieDoc()?></td>
-                            <td class="aceite"><?=$this->dados->getBanco()->getAceite()?></td>
+                            <td class="aceite"><?=$this->dados->getBanco()->getAceite() ? $this->dados->getBanco()->getAceite() : 'N'?></td>
                             <td class="data_process"><?=$this->dados->getBoleto()->getDataProcessamento()->format('d/m/Y')?></td>
                             <td class="nosso_numero2"><?=$this->dados->getBoleto()->getNossoNumeroFormatado()?></td>
                         </tr>
@@ -722,7 +722,9 @@
                 </div>
 
                 <div class="barcode">
-                    <p style="font-size:0px;"><?=$this->dados->getBoleto()->getCodigoDeBarras()->render()?></p>
+                    <p style="font-size:0px;">
+                    <img src="<?php echo $this->dados->getBoleto()->getCodigoDeBarras()->render() ?>" />
+                    </p>
                 </div>
 
                 <div class="cut">
